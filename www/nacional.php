@@ -425,7 +425,7 @@
                                 </div>
                             </div>
                         </div>
-                        <legend>Datos Iglesia y pastor</legend>
+                        <legend>Datos Iglesia y Pastor</legend>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Nombre Iglesia</label>
                             <div class="col-md-5">
@@ -443,7 +443,7 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <select class="form-control" id="denominacion" name="denominacion">
-                                        <option value="" selected>Denominacion:</option>
+                                        <option value="" selected>Denominación:</option>
                                         <option value="LIBRES">LIBRES</option>
                                         <option value="UCE">UCE</option>
                                         <option value="OEN">OEN</option>
@@ -575,7 +575,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Fotocopia certificado bachiller</label>
+                            <label class="col-md-4 control-label">Fotocopia certificado bachiller o libreta escolar</label>
                             <div class="col-md-4">
                                 <input type="file" class="custom-file-input" id="certificadobachiller" lang="es">
                             </div>

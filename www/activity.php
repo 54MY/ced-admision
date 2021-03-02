@@ -116,7 +116,7 @@
                     src="images/products-02.jpeg" alt="">
                 <div class="product-item-description d-flex mr-auto">
                     <div class="bg-faded p-5 rounded">
-                        <p class="mb-0">Una experiencia totalmente centrada en la Palabrade Dios, que te permitirá
+                        <p class="mb-0">Una experiencia totalmente centrada en la Palabra de Dios, que te permitirá
                             disfrutar de la enseñanza de profesores que te acompañarán en el desarrollo de un estudio
                             Bíblico personal.
                         </p>
@@ -157,7 +157,7 @@
                             Cultivando un compañerismo en el aula, cuartos, deporte, etc.
                         </p>
                         </br>
-                        Tendrás la oportunidad de recibir un acompañamiento espirtual por parte de los misioneros de
+                        Tendrás la oportunidad de recibir un acompañamiento espiritual por parte de los misioneros de
                         Palabra de Vida Bolivia.
                         </p>
                     </div>
@@ -186,10 +186,11 @@
                         </p>
                         </br>
                         <p class="mb-0">
-                            Debido al riesgo significativo que atravezamos por la pandemia, los alumnos no podrán salir
+                            Debido al riesgo significativo que atravesamos por la pandemia, los alumnos no podrán salir
                             de minsiterio a las Iglesias locales, pero mientras esperamos la oportunidad de un servicio
-                            presencial, ofrecemos talleres extracurriculares y recursos virtuales que te servirán en tu
-                            futúro minsterio.
+                            presencial, ofreceremos talleres extracurriculares y recursos virtuales que te servirán en
+                            tu
+                            futuro minsterio.
                         </p>
                     </div>
                 </div>
@@ -199,7 +200,7 @@
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Your Website 2020</p>
+            <p class="m-0 small">Copyright &copy; www.admisionced.com 2021</p>
         </div>
     </footer>
 

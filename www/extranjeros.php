@@ -218,7 +218,7 @@
 
     <div class="container">
         <div class="row">
-            <h2>Formulario para postulantes extrajeros</h2>
+            <h2>Formulario para postulantes extranjeros</h2>
             <div class="col-md-10 ">
                 <form class="form-horizontal" method="post">
                     <fieldset>
@@ -306,15 +306,15 @@
                             </div>
                         </div>
                         <div class="form-group" id="lugarextrangero">
-                            <label class="col-sm-4 control-label" for="ciudadOtro">Escriba su lugar de
+                            <label class="col-sm-4 control-label" for="ciudadOtro">Lugar de
                                 nacimiento</label>
                             <div class="col-sm-8">
                                 <div class="input-group othertop">
                                     <div class="input-group-addon">
                                         <em class="fa fa-globe"></em>
                                     </div>
-                                    <input class="form-control" id="lugarnacimiento" type="text"
-                                        name="lugarnacimiento" placeholder="Escriba el nombre de su ciudad" />
+                                    <input class="form-control" id="lugarnacimiento" type="text" name="lugarnacimiento"
+                                        placeholder="Escriba el nombre de su ciudad" />
                                 </div>
                             </div>
                         </div>
@@ -412,7 +412,19 @@
                                     placeholder="Correo electrónico">
                             </div>
                         </div>
-                        <legend>Datos Iglesia y pastor</legend>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ocupacion">Ocupación o profesión</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <em class="fa fa-user"></em>
+                                    </div>
+                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion"
+                                        placeholder="Ocupacion o profesión">
+                                </div>
+                            </div>
+                        </div>
+                        <legend>Datos Iglesia y Pastor</legend>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Nombre Iglesia</label>
                             <div class="col-md-5">
@@ -430,7 +442,7 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <select class="form-control" id="denominacion" name="denominacion">
-                                        <option value="" selected>Denominacion:</option>
+                                        <option value="" selected>Denominación:</option>
                                         <option value="LIBRES">LIBRES</option>
                                         <option value="UCE">UCE</option>
                                         <option value="OEN">OEN</option>
@@ -547,7 +559,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Fotocopia certificado bachiller</label>
+                            <label class="col-md-4 control-label">Fotocopia certificado bachiller o libreta
+                                escolar</label>
                             <div class="col-md-4">
                                 <input type="file" class="custom-file-input" id="certificadobachiller" lang="es">
                             </div>

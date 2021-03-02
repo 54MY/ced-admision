@@ -107,9 +107,9 @@
                 <div class="col-xl-9 mx-auto">
                     <div class="cta-inner text-center rounded">
                         <h2 class="section-heading">
-                            <span class="section-heading-lower">Contáctanos</span>
+                            <span class="section-heading-upper">Contáctanos</span>
                             </br>
-                            <span class="section-heading-upper">Palabra de vida Bolivia</span>
+                            <span class="section-heading-lower">Palabra de vida Bolivia</span>
                         </h2>
                         <p class="address mb-5">
                             <em>
@@ -121,8 +121,10 @@
                             reservar la vacante con un depósito de 2700 bs. Este importe se debe a : matrícula  500 bs,
                             más primera cuota correspondiente al mes de Abril de 1100 bs y una cuota como reserva de
                             1100 bs. Esta última se acreditará en la cuenta del alumno cuando no cancele alguna cuota, o
-                            bien se acreditará llegando al mes de Noviembre y así ese último mes no deberán pagar. Ante
-                            cualquier duda pueden consultarnos a los siguientes contáctos:</p>
+                            bien se acreditará llegando al mes de Noviembre y así ese último mes no deberán pagar. <b>SI
+                                DESEA MAYOR INFORMACIÓN EN CUANTO AL C.E.D.:</b> Requisitos, Costos, Modalidades de
+                            Pago,
+                            cualquier duda o consulta, por favor Contactarse a los siguientes números o E-mail:</p>
                         <p class="mb-0">
                             <li>
                                 (+591) 4576837
@@ -135,6 +137,9 @@
                             </li>
                             <li>
                                 (+591) 72217786
+                            </li>
+                            <li>
+                                ced.pvbolivia@gmail.com
                             </li>
                         </p>
                         <p class="address mb-5">
@@ -180,8 +185,8 @@
                                 Estatutos y Propósitos de la Organización, los cuales son conocidos y
                                 aprobados por el Ministerio de Relaciones Exteriores y Culto; nos
                                 abocamos a cumplirlos con todo el corazón, esmero y esfuerzo;
-                                transmitiendo valores morales y éticos a la <em>Juventud y a la Niñez de
-                                    Bolivia.</em></p>
+                                transmitiendo valores morales y éticos a la Juventud y a la Niñez de
+                                Bolivia.</p>
                         </div>
                     </div>
                 </div>
@@ -191,7 +196,7 @@
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Your Website 2018</p>
+            <p class="m-0 small">Copyright &copy; www.admisionced.com 2021</p>
         </div>
     </footer>
 

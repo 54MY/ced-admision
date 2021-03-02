@@ -120,7 +120,7 @@
                                 Sede
                                 Central en la Localidad de Arbieto, más precisamente en La Angostura,
                                 Zona Caluyo, camino a Tarata, bajo la Personería Jurídica reconocida
-                                mediante Resolución Suprema No 215650. Manteniéndonos fieles a los
+                                mediante Resolución Suprema Nro 215650. Manteniéndonos fieles a los
                                 Estatutos y Propósitos de la Organización, los cuales son conocidos y
                                 aprobados por el Ministerio de Relaciones Exteriores y Culto; nos
                                 abocamos a cumplirlos con todo el corazón, esmero y esfuerzo;
@@ -135,7 +135,7 @@
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Your Website 2020</p>
+            <p class="m-0 small">Copyright &copy; www.admisionced.com 2021</p>
         </div>
     </footer>
 

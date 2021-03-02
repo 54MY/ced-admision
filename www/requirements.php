@@ -46,7 +46,7 @@
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item active px-lg-4">
+                    <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="about.php">Quienes somos</a>
                     </li>
                     <li class="nav-item px-lg-4">
@@ -55,7 +55,7 @@
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="contact.php">Contacto</a>
                     </li>
-                    <li class="nav-item px-lg-4">
+                    <li class="nav-item active px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" href="requirements.php">Requisitos</a>
                     </li>
                     <li class="nav-item px-lg-4">
@@ -138,10 +138,10 @@
                                     <a>Fotocopia de la cédula de identidad
                                 </li>
                                 <li class="nav-item px-lg-4">
-                                    <a>Fotocipia del título de bachillerato
+                                    <a>Fotocopia del título de bachillerato o libreta escolar
                                 </li>
                                 <li class="nav-item px-lg-4">
-                                    <a>Carta de recomendación de la iglesia
+                                    <a>Carta de recomendación de la Iglesia
                                 </li>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Your Website 2020</p>
+            <p class="m-0 small">Copyright &copy; www.admisionced.com 2021</p>
         </div>
     </footer>
 

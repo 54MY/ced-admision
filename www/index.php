@@ -150,10 +150,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-8 col-sm-6" onclick="location.href='extrangeros.php'">
+                        <div class="col-8 col-sm-6" onclick="location.href='extranjeros.php'">
                             <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title">Extrangeros</h5>
+                                    <h5 class="card-title">Extranjeros</h5>
                                     <p class="card-text">Llene los datos correspondientes de manera correcta.</p>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
         </div>
     </div>
 
-    <section class="page-section cta">
+    <!-- <section class="page-section cta">
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
@@ -190,11 +190,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Your Website 2020</p>
+            <p class="m-0 small">Copyright &copy; www.admisionced.com 2021</p>
         </div>
     </footer>
 
