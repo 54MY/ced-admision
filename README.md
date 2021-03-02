@@ -8,7 +8,7 @@ Palabra de Vida es una Organización Cristiana sin fines de lucro, que se encuen
 Actualmente la Organización Palabra de Vida Bolivia tiene su Sede Central en la Localidad de Arbieto, más precisamente en La Angostura, Zona Caluyo, camino a Tarata, bajo la Personería Jurídica reconocida mediante Resolución Suprema No 215650. Manteniéndonos fieles a los Estatutos y Propósitos de la Organización, los cuales son conocidos y aprobados por el Ministerio de Relaciones Exteriores y Culto; nos abocamos a cumplirlos con todo el corazón, esmero y esfuerzo; transmitiendo valores morales y éticos a la Juventud y a la Niñez de Bolivia.
 
 ### Centro de Evangelismo y Discipulado
-El C.D.E. tiene como ibjetivo principal el incentivar, entrenar y equipar al alumno en el área de Evangelismo y Discipulado, inculcando Valores y Principios Bíblicos para su Vida Cristiana 
+El C.E.D. tiene como ibjetivo principal incentivar, entrenar y equipar al alumno en el área de Evangelismo y Discipulado, inculcando Valores y Principios Bíblicos para su Vida Cristiana 
 <p align="center"><img width="300" src="www/images/logos/ced.png" alt="Centro de Evangelismo y Discipulado"></p>
 
 ### Proceso de instalacion

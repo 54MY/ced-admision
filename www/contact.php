@@ -47,75 +47,109 @@
                         </a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="about.php">Acerca</a>
+                        <a class="nav-link text-uppercase text-expanded" href="about.php">Quienes somos</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="products.php">Actividades</a>
+                        <a class="nav-link text-uppercase text-expanded" href="activity.php">Experiencias</a>
                     </li>
                     <li class="nav-item active px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="store.php">Historia</a>
+                        <a class="nav-link text-uppercase text-expanded" href="contact.php">Contacto</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="requirements.php">Requisitos</a>
                     </li>
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" role="button" aria-pressed="true"
-                            data-toggle="modal" data-target="#ingresar" href="#">Iniciar session</a>
+                            data-toggle="modal" data-target="#ingresar" href="#">Iniciar sesion</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Modal -->
+    <form class="form-signin" action="#" method="post">
+        <div class="modal fade" id="ingresar" tabindex="-1" role="dialog" aria-labelledby="ingresarLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title center" id="ingresarLabel">Iniciar sesion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="username" type="user" id="userName" class="form-control input-sm chat-input"
+                            placeholder="Nombres de usuario" />
+                        </br>
+                        <input name="password" type="password" id="userPassword"
+                            class="form-control input-sm chat-input" placeholder="contraseña" />
+                        </br>
+                        <a class="example-popover" data-toggle="popover" title="Habla con nosotros"
+                            data-content="WhatsApp +591 77777777">Olvidaste tu contraseña?</a>
+                        </br>
+                        </br>
+                        <div class="wrapper">
+                            <span class="group-btn">
+                                <input name="submit" class="btn btn-primary btn-md" type="submit" value="Ingresar">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <section class="page-section cta">
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
                     <div class="cta-inner text-center rounded">
-                        <h2 class="section-heading mb-5">
-                            <span class="section-heading-upper">Visitanos</span>
-                            <span class="section-heading-lower">PDVB</span>
+                        <h2 class="section-heading">
+                            <span class="section-heading-lower">Contáctanos</span>
+                            </br>
+                            <span class="section-heading-upper">Palabra de vida Bolivia</span>
                         </h2>
-                        <ul class="list-unstyled list-hours mb-5 text-left mx-auto">
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                Domingos
-                                <span class="ml-auto">Cerrado</span>
-                            </li>
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                Lunes
-                                <span class="ml-auto">7:00 AM to 8:00 PM</span>
-                            </li>
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                Martes
-                                <span class="ml-auto">7:00 AM to 8:00 PM</span>
-                            </li>
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                Miercoles
-                                <span class="ml-auto">7:00 AM to 8:00 PM</span>
-                            </li>
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                Jueves
-                                <span class="ml-auto">7:00 AM to 8:00 PM</span>
-                            </li>
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                Viernes
-                                <span class="ml-auto">7:00 AM to 8:00 PM</span>
-                            </li>
-                            <li class="list-unstyled-item list-hours-item d-flex">
-                                Sabado
-                                <span class="ml-auto">9:00 AM to 5:00 PM</span>
-                            </li>
-                        </ul>
                         <p class="address mb-5">
                             <em>
-                                <strong>La Angostura Carretera a Tarata</strong>
-                                <br>
                                 "Alcanzando a la juventud con el evangelio de Jesucristo"
                             </em>
                         </p>
+                        <p style="text-align: justify;">Querido interesado al CED 2021
+                            Queremos comunicarles que una vez que puedan inscribirse en la página, el paso siguiente es
+                            reservar la vacante con un depósito de 2700 bs. Este importe se debe a : matrícula  500 bs,
+                            más primera cuota correspondiente al mes de Abril de 1100 bs y una cuota como reserva de
+                            1100 bs. Esta última se acreditará en la cuenta del alumno cuando no cancele alguna cuota, o
+                            bien se acreditará llegando al mes de Noviembre y así ese último mes no deberán pagar. Ante
+                            cualquier duda pueden consultarnos a los siguientes contáctos:</p>
                         <p class="mb-0">
-                            <small>
-                                <em>Llamanos</em>
-                            </small>
-                            <br>
-                            (+591) 4576837
+                            <li>
+                                (+591) 4576837
+                            </li>
+                            <li>
+                                (+591) 73777704
+                            </li>
+                            <li>
+                                (+591) 72281053
+                            </li>
+                            <li>
+                                (+591) 72217786
+                            </li>
+                        </p>
+                        <p class="address mb-5">
+                            <em>
+                                <strong>La Angostura Carretera a Tarata</strong>
+                            </em>
+                        </p>
+                        <p class="mb-0">
+                            <a href="https://www.facebook.com/Palabra-de-Vida-Bolivia-101117892019" target="_blank">
+                                <i class="fab fa-facebook-f">Facebook</i>
+                            </a>
+                            <a>/</a>
+                            <a href="https://www.instagram.com/pdvbolivia/" target="_blank">
+                                <i class="fab fa-instagram">Instagram</i>
+                            </a>
                         </p>
                     </div>
                 </div>

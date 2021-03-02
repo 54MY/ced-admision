@@ -40,14 +40,15 @@
 <body>
 
     <h1 class="site-heading text-center text-white d-none d-lg-block">
-        <span class="site-heading-upper text-primary mb-3">Centro de Evangelismo y Discipulado</span>
+        <span class="site-heading-upper text-primary mb-3">Admision Centro de Evangelismo y Discipulado</span>
         <span class="site-heading-lower">C.E.D.</span>
+        <!-- <img class="intro-img img-fluid mb-3 mb-lg-0 rounded site-heading-lower" src="images/logos/ced.png" alt=""> -->
     </h1>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
         <div class="container">
-            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
+            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Admision C.E.D.</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -60,17 +61,20 @@
                         </a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="about.php">Acerca</a>
+                        <a class="nav-link text-uppercase text-expanded" href="about.php">Quienes somos</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="products.php">Actividades</a>
+                        <a class="nav-link text-uppercase text-expanded" href="activity.php">Experiencias</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="store.php">Historia</a>
+                        <a class="nav-link text-uppercase text-expanded" href="contact.php">Contacto</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="requirements.php">Requisitos</a>
                     </li>
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" role="button" aria-pressed="true"
-                            data-toggle="modal" data-target="#ingresar" href="#">Iniciar session</a>
+                            data-toggle="modal" data-target="#ingresar" href="#">Iniciar sesion</a>
                     </li>
                 </ul>
             </div>
@@ -120,17 +124,53 @@
                         <span class="section-heading-upper">Centro de Evangelismo y Discipulado</span>
                         <span class="section-heading-lower">C.E.D.</span>
                     </h2>
-                    <p class="mb-3">El C.D.E. tiene como ibjetivo principal el incentivar, entrenar y equipar al alumno
+                    <p class="mb-3">El C.E.D tiene como objetivo principal incentivar, entrenar y equipar al alumno
                         en el área
                         de Evangelismo y Discipulado, inculcando Valores y Principios Bíblicos para su Vida Cristiana
                     </p>
                     <div class="intro-button mx-auto">
-                        <a class="btn btn-primary btn-xl" href="registro.php">Postulate ya!</a>
+                        <a class="btn btn-primary btn-xl" data-toggle="modal"
+                            data-target="#exampleModalCenter">Postulate ya!</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Modal Registro -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Seleccione el formulario de registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-8 col-sm-6" onclick="location.href='extrangeros.php'">
+                            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Extrangeros</h5>
+                                    <p class="card-text">Llene los datos correspondientes de manera correcta.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 col-sm-6" onclick="location.href='nacional.php'">
+                            <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nacional</h5>
+                                    <p class="card-text">Llene los datos correspondientes de manera correcta.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="page-section cta">
         <div class="container">
@@ -141,7 +181,7 @@
                             <span class="section-heading-upper">Centro de Evangelismo y Discipulado</span>
                             <span class="section-heading-lower">C.E.D.</span>
                         </h2>
-                        <p class="mb-0">El C.D.E. tiene como ibjetivo principal el incentivar, entrenar y equipar al
+                        <p class="mb-0">El C.E.D tiene como objetivo principal incentivar, entrenar y equipar al
                             alumno
                             en el área
                             de Evangelismo y Discipulado, inculcando Valores y Principios Bíblicos para su Vida

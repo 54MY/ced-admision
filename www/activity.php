@@ -47,22 +47,59 @@
                         </a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="about.php">Acerca</a>
+                        <a class="nav-link text-uppercase text-expanded" href="about.php">Quienes somos</a>
                     </li>
                     <li class="nav-item active px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="products.php">Actividades</a>
+                        <a class="nav-link text-uppercase text-expanded" href="activity.php">Experiencias</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="store.php">Historia</a>
+                        <a class="nav-link text-uppercase text-expanded" href="contact.php">Contacto</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="requirements.php">Requisitos</a>
                     </li>
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase text-expanded" role="button" aria-pressed="true"
-                            data-toggle="modal" data-target="#ingresar" href="#">Iniciar session</a>
+                            data-toggle="modal" data-target="#ingresar" href="#">Iniciar sesion</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Modal -->
+    <form class="form-signin" action="#" method="post">
+        <div class="modal fade" id="ingresar" tabindex="-1" role="dialog" aria-labelledby="ingresarLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title center" id="ingresarLabel">Iniciar sesion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input name="username" type="user" id="userName" class="form-control input-sm chat-input"
+                            placeholder="Nombres de usuario" />
+                        </br>
+                        <input name="password" type="password" id="userPassword"
+                            class="form-control input-sm chat-input" placeholder="contraseña" />
+                        </br>
+                        <a class="example-popover" data-toggle="popover" title="Habla con nosotros"
+                            data-content="WhatsApp +591 77777777">Olvidaste tu contraseña?</a>
+                        </br>
+                        </br>
+                        <div class="wrapper">
+                            <span class="group-btn">
+                                <input name="submit" class="btn btn-primary btn-md" type="submit" value="Ingresar">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <section class="page-section">
         <div class="container">
@@ -70,19 +107,31 @@
                 <div class="product-item-title d-flex">
                     <div class="bg-faded p-5 d-flex ml-auto rounded">
                         <h2 class="section-heading mb-0">
-                            <span class="section-heading-upper">Estudiantes</span>
-                            <span class="section-heading-lower">Biblia &amp; +Biblia</span>
+                            <span class="section-heading-upper">Experciencia con</span>
+                            <span class="section-heading-lower">La Palabra de Dios</span>
                         </h2>
                     </div>
                 </div>
                 <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0"
-                    src="images/products-01.jpeg" alt="">
+                    src="images/products-02.jpeg" alt="">
                 <div class="product-item-description d-flex mr-auto">
                     <div class="bg-faded p-5 rounded">
-                        <p class="mb-0">Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar
-                            Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar
-                            Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar.
+                        <p class="mb-0">Una experiencia totalmente centrada en la Palabrade Dios, que te permitirá
+                            disfrutar de la enseñanza de profesores que te acompañarán en el desarrollo de un estudio
+                            Bíblico personal.
                         </p>
+                        </br>
+                        <p class="mb-0">
+                            Preparándote con una base sólida para la vida.
+                        </p>
+                        </br>
+                        <li class="nav-item px-lg-4">
+                            <a><b>Primer año:</b> Curso básico, con enfasis en evangelismo y discipulado (16
+                                materias)</a>
+                        </li>
+                        <li class="nav-item px-lg-4">
+                            <a><b>Segundo año:</b> Curso teológico (16 materias)</a>
+                        </li>
                     </div>
                 </div>
             </div>
@@ -95,18 +144,21 @@
                 <div class="product-item-title d-flex">
                     <div class="bg-faded p-5 d-flex mr-auto rounded">
                         <h2 class="section-heading mb-0">
-                            <span class="section-heading-upper">Aulas con Estudiantes</span>
-                            <span class="section-heading-lower">Biblia &amp; +Biblia</span>
+                            <span class="section-heading-upper">Expriencia con</span>
+                            <span class="section-heading-lower">El diario vivir</span>
                         </h2>
                     </div>
                 </div>
                 <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0"
-                    src="images/products-02.jpeg" alt="">
+                    src="images/products-01.jpeg" alt="">
                 <div class="product-item-description d-flex ml-auto">
                     <div class="bg-faded p-5 rounded">
-                        <p class="mb-0">Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar
-                            Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar
-                            Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar.
+                        <p class="mb-0">Te permite aplicar el conocimiento adquirido en al aula a tu diario vivir.
+                            Cultivando un compañerismo en el aula, cuartos, deporte, etc.
+                        </p>
+                        </br>
+                        Tendrás la oportunidad de recibir un acompañamiento espirtual por parte de los misioneros de
+                        Palabra de Vida Bolivia.
                         </p>
                     </div>
                 </div>
@@ -120,8 +172,8 @@
                 <div class="product-item-title d-flex">
                     <div class="bg-faded p-5 d-flex ml-auto rounded">
                         <h2 class="section-heading mb-0">
-                            <span class="section-heading-upper">El Quincho cerca al lago</span>
-                            <span class="section-heading-lower">Biblia &amp; +Biblia</span>
+                            <span class="section-heading-upper">Experiencia con</span>
+                            <span class="section-heading-lower">La obra de Dios</span>
                         </h2>
                     </div>
                 </div>
@@ -129,9 +181,15 @@
                     src="images/products-03.jpeg" alt="">
                 <div class="product-item-description d-flex mr-auto">
                     <div class="bg-faded p-5 rounded">
-                        <p class="mb-0">Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar
-                            Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar
-                            Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar Estudiar.
+                        <p class="mb-0">Nuestro deseo es equipar al estudiante con experiencias ministeriales que le
+                            lleven a marcar una diferencia en su Iglesia local.
+                        </p>
+                        </br>
+                        <p class="mb-0">
+                            Debido al riesgo significativo que atravezamos por la pandemia, los alumnos no podrán salir
+                            de minsiterio a las Iglesias locales, pero mientras esperamos la oportunidad de un servicio
+                            presencial, ofrecemos talleres extracurriculares y recursos virtuales que te servirán en tu
+                            futúro minsterio.
                         </p>
                     </div>
                 </div>

@@ -103,29 +103,47 @@
 
     <section class="page-section about-heading">
         <div class="container">
-            <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="images/about.png" alt="">
-            <div class="about-heading-content">
-                <div class="row">
-                    <div class="col-xl-9 col-lg-10 mx-auto">
-                        <div class="bg-faded rounded p-5">
-                            <h2 class="section-heading mb-4">
-                                <span class="section-heading-upper">Palabra de Vida Bolivia</span>
-                                <span class="section-heading-lower">La Angostura</span>
-                            </h2>
-                            <p>Palabra de Vida es una Organización Cristiana sin fines de lucro, que se
-                                encuentra en más de 65 países, desde hace más de 75 Años y en Bolivia
-                                desde hace 30 años, trabajando de una manera directa con la Juventud
-                                y la Niñez, llevando el Evangelio en toda Bolivia.</p>
-                            <p class="mb-0">Actualmente la Organización Palabra de Vida Bolivia tiene su
-                                Sede
-                                Central en la Localidad de Arbieto, más precisamente en La Angostura,
-                                Zona Caluyo, camino a Tarata, bajo la Personería Jurídica reconocida
-                                mediante Resolución Suprema No 215650. Manteniéndonos fieles a los
-                                Estatutos y Propósitos de la Organización, los cuales son conocidos y
-                                aprobados por el Ministerio de Relaciones Exteriores y Culto; nos
-                                abocamos a cumplirlos con todo el corazón, esmero y esfuerzo;
-                                transmitiendo valores morales y éticos a la <em>Juventud y a la Niñez de
-                                    Bolivia.</em></p>
+            <div class="product-item">
+                <div class="product-item-title d-flex">
+                    <div class="bg-faded p-5 d-flex ml-auto rounded">
+                        <h2 class="section-heading mb-0">
+                            <span class="section-heading-upper">Requisitos</span>
+                            <span class="section-heading-lower">C.E.D. 2021<span>
+                        </h2>
+                    </div>
+                </div>
+                <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="images/requirement.png"
+                    alt="">
+                <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+                                <h2 class="section-heading mb-4">
+                                    <span class="section-heading-upper">Querido postulante</span>
+                                </h2>
+                                <p>Los requisitos son los siguientes:</p>
+                                <li class="nav-item px-lg-4">
+                                    <a>PCR con 72 horas antes del ingreso a la Propiedad Palabra de Vida</a>
+                                </li>
+                                <li class="nav-item px-lg-4">
+                                    <a>Análisis: VDRL, Hemograma, HIV, Chagas, VDRL, Grupo y Factor.
+                                </li>
+                                <li class="nav-item px-lg-4">
+                                    <a>Seguro medico
+                                </li>
+                                <li class="nav-item px-lg-4">
+                                    <a>Dos fotos cuatro por cuatro
+                                </li>
+                                <li class="nav-item px-lg-4">
+                                    <a>Fotocopia de la cédula de identidad
+                                </li>
+                                <li class="nav-item px-lg-4">
+                                    <a>Fotocipia del título de bachillerato
+                                </li>
+                                <li class="nav-item px-lg-4">
+                                    <a>Carta de recomendación de la iglesia
+                                </li>
+                            </div>
                         </div>
                     </div>
                 </div>

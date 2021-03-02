@@ -13,10 +13,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="#" />
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="
         crossorigin="anonymous">
+    <!-- Bootstrap datetimepicker -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
@@ -68,6 +75,7 @@
                 $mensaje = 'Campo sexo requerido';
                 popUpWarning($mensaje);
             }
+            $pais = 'BOLIVIA';
             $lugarnacimiento = addslashes($_POST['lugarnacimiento']);
             if (empty($lugarnacimiento)) {
                 $mensaje = 'Debe ingresar su lugar de nacimiento';
@@ -96,7 +104,7 @@
             if (empty($edad)) {
                 $mensaje = 'Debe elegir su edad';
                 popUpWarning($mensaje);
-            } else if ($edad <= 18 && $edad >= 50) {
+            } else if ($edad <= 18 && $edad >= 70) {
                 $mensaje = 'Rango edad no permitido';
                 popUpWarning($mensaje);
             }
@@ -119,6 +127,7 @@
                 $mensaje = 'Ingrese su correo';
                 popUpWarning($mensaje);
             }
+            $ocupacion = addslashes($_POST['ocupacion']);
             $nombreiglesia = addslashes($_POST['nombreiglesia']);
             if (empty($nombreiglesia)) {
                 $mensaje = 'Ingrese el nombre de la iglesia';
@@ -169,6 +178,11 @@
                 $mensaje = 'Ingrese su testimonio';
                 popUpWarning($mensaje);
             }
+            $postulacion = addslashes($_POST['postulacion']);
+            if (empty($postulacion)) {
+                $mensaje = 'Debe elegir el año de postulación';
+                popUpWarning($mensaje);
+            }
             $usuario = addslashes($_POST['usuario']);
             if (empty($usuario)) {
                 $mensaje = 'Ingrese su usuario';
@@ -181,31 +195,33 @@
             }
             $contrasena =  sha1($contrasena);
 
-            $sql = "INSERT INTO cedadmision.Postulante (Cedula, Expedido, Nombres, Apellidos, Sexo, Lugar_Nacimiento, Fecha_Nacimiento, Estado_Civil, Edad, Datos_Conyugue, Datos_Hijos, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Nombre_Iglesia, Denominacion, Direccion_Iglesia, Domicilio_Iglesia, Miembro_Iglesia, Bautizado, Nombre_Pastor, Telefono_Pastor, Correo_Pastor, Testimonio, Usuario, Contrasena)
-                    VALUES($cedula, '$expedido', '$nombres', '$apellidos', '$sexo', '$lugarnacimiento', '$fechanacimiento', '$estadocivil', $edad, '$datosconyuge', '$hijos', '$direcciondep', '$domicilio', $celular, '$correo', '$nombreiglesia', '$denominacion', '$direccioniglesia', '$domicilioiglesia', '$miembro', '$bautizado', '$pastor', $telefonopastor, '$correpastor', '$testimonio', '$usuario', '$contrasena')";
+            $sql = "INSERT INTO cedadmision.Postulante (Cedula, Expedido, Nombres, Apellidos, Sexo, Pais, Lugar_Nacimiento, Fecha_Nacimiento, Estado_Civil, Edad, Datos_Conyugue, Datos_Hijos, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Ocupacion, Nombre_Iglesia, Denominacion, Direccion_Iglesia, Domicilio_Iglesia, Miembro_Iglesia, Bautizado, Nombre_Pastor, Telefono_Pastor, Correo_Pastor, Testimonio, Postulacion, Usuario, Contrasena)
+                    VALUES($cedula, '$expedido', '$nombres', '$apellidos', '$sexo', '$pais', '$lugarnacimiento', '$fechanacimiento', '$estadocivil', $edad, '$datosconyuge', '$hijos', '$direcciondep', '$domicilio', $celular, '$correo', '$ocupacion','$nombreiglesia', '$denominacion', '$direccioniglesia', '$domicilioiglesia', '$miembro', '$bautizado', '$pastor', $telefonopastor, '$correpastor', '$testimonio', '$postulacion', '$usuario', '$contrasena')";
 
             $retval = mysqli_query($con,$sql);
             if($retval) {
-                $mensaje = 'Ahora puedes iniciar session en tu perfil';
-                popUpSuccess('Registrado con exito', $mensaje);
+                $mensaje = 'Te registraste con exito. \n\n\n En unos días nos comunicaremos contigo';
+                popUpSuccess('Felicidades', $mensaje);
             } else if(! $retval ) {
                 $mensaje = 'Nose pudo registrar';
                 popUpEnd('Error en Servidor',$mensaje);
                 die('Could not enter data: ' . mysqli_error());
             }
 
-            popUpEnd('Inscripciones cerradas','El proceso de inscripcion a terminado');
+            //popUpEnd('Inscripciones cerradas','El proceso de inscripcion a terminado');
         }
     ?>
 
     <div class="container">
         <div class="row">
+            <h2>Formulario para postulantes Nacionales</h2>
             <div class="col-md-10 ">
                 <form class="form-horizontal" method="post">
                     <fieldset>
                         <legend>Datos personales</legend>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="cedula">Número de Cédula de Identidad (C.I.)</label>
+                            <label class="col-md-4 control-label" for="cedula">Número de Cédula de Identidad
+                                (C.I.)</label>
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -288,8 +304,8 @@
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
-                                    <input type="text" class="form-control" id="fechanacimiento"
-                                        name="fechanacimiento" />
+                                    <input type="text" class="form-control" id="fechanacimiento" name="fechanacimiento"
+                                        placeholder="Año/Mes/Dia" />
                                 </div>
                             </div>
                         </div>
@@ -319,7 +335,7 @@
                                     <select require="true" class="form-control" id="edad" name="edad">
                                         <option value="" selected>Que edad tienes?</option>
                                         <?php
-                                            for ($i = 18; $i <= 50; $i++) {
+                                            for ($i = 18; $i <= 70; $i++) {
                                                 echo '<option value="' . $i . '">' . $i . '</option>';
                                             }
                                         ?>
@@ -397,6 +413,18 @@
                                     placeholder="Correo electrónico">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ocupacion">Ocupación o profesión</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <em class="fa fa-user"></em>
+                                    </div>
+                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion"
+                                        placeholder="Ocupacion o profesión">
+                                </div>
+                            </div>
+                        </div>
                         <legend>Datos Iglesia y pastor</legend>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Nombre Iglesia</label>
@@ -419,6 +447,8 @@
                                         <option value="LIBRES">LIBRES</option>
                                         <option value="UCE">UCE</option>
                                         <option value="OEN">OEN</option>
+                                        <option value="BAUTISTA">BAUTISTA</option>
+                                        <option value="OTROS">OTROS</option>
                                     </select>
                                 </div>
                             </div>
@@ -450,7 +480,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">¿Eres miembro de esta Iglesia?</label>
+                            <label class="col-sm-4 control-label">¿Asiste a esta Iglesia?</label>
                             <div class="col-sm-8">
                                 <div class="form-check form-check-inline">
                                     <input class="col-sm-1 form-check-input" type="radio" name="miembro" id="miembro"
@@ -482,8 +512,13 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Datos Pastor</label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" id="pastor" name="pastor"
-                                    placeholder="Nombre completo">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <em class="fa fa-user"></em>
+                                    </div>
+                                    <input type="text" class="form-control" id="pastor" name="pastor"
+                                        placeholder="Nombre completo">
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <input type="number" class="form-control" id="telefonopastor" name="telefonopastor"
@@ -506,7 +541,17 @@
                                 </div>
                             </div>
                         </div>
-                        <legend>Adjuntar los archivos de forma olbigatoria</legend>
+                        <legend>Adjuntar los archivos de forma obligatoria</legend>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Año al que postula</label>
+                            <div class="col-md-4">
+                                <select class="form-control" id="postulacion" name="postulacion">
+                                    <option value="" selected>Seleccione un año</option>
+                                    <option value="PRIMERO">Primer año</option>
+                                    <option value="SEGUNDO">Segundo año</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Fotografia 4X4</label>
                             <div class="col-md-5">
@@ -574,14 +619,6 @@
             </div>
         </div>
     </div>
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
 </body>
 
 </html>
@@ -591,7 +628,7 @@ $('#estadocivil').on('change', function() {
     var conyugueform = document.getElementById("conyugueform");
     var hijosform = document.getElementById("hijosform");
     var selectedValue = this.value;
-    if (selectedValue != "Soltero") {
+    if (selectedValue != "Soltero" && selectedValue != "") {
         conyugueform.style.display = "block";
         hijosform.style.display = "block";
     } else {
@@ -602,9 +639,9 @@ $('#estadocivil').on('change', function() {
 </script>
 
 <script type="text/javascript">
-$(document).ready(function(){
-    $('#calendario').datetimepicker({
-        defaultDate: "01/01/1990",
+$(document).ready(function() {
+    $('#fechanacimiento').datetimepicker({
+        defaultDate: "01/01/1985",
         viewMode: 'years',
         format: 'YYYY/MM/DD'
     });
@@ -612,26 +649,22 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
-    $(function() {
-        $('#fotografia').change(function(e) {
-            addImage(e);
-        });
-
-        function addImage(e) {
-            var file = e.target.files[0],
-                imageType = /image.*/;
-
-            if (!file.type.match(imageType))
-                return;
-
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                var result = e.target.result;
-                $('#imgSalida').attr("src", result);
-            }
-
-            reader.readAsDataURL(file);
-        }
+$(function() {
+    $('#fotografia').change(function(e) {
+        addImage(e);
     });
+
+    function addImage(e) {
+        var file = e.target.files[0],
+            imageType = /image.*/;
+        if (!file.type.match(imageType))
+            return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var result = e.target.result;
+            $('#imgSalida').attr("src", result);
+        }
+        reader.readAsDataURL(file);
+    }
+});
 </script>
