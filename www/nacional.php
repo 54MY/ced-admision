@@ -16,6 +16,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -39,6 +40,20 @@
     body {
         padding-top: 70px;
         padding-bottom: 70px;
+    }
+
+    label.error {
+        color: red;
+        font-size: 1rem;
+        display: block;
+        margin-top: 5px;
+    }
+
+    input.error,
+    textarea.error {
+        border: 1px dashed red;
+        font-weight: 300;
+        color: red;
     }
     </style>
 </head>
@@ -64,17 +79,17 @@
             if (empty($nombres)) {
                 $mensaje = 'Campo nombres requerido';
                 popUpWarning($mensaje);
-            }
+            } else {$nombres = strtoupper($nombres);}
             $apellidos = addslashes($_POST['apellidos']);
             if (empty($apellidos)) {
                 $mensaje = 'Campo apellidos requerido';
                 popUpWarning($mensaje);
-            }
+            } else {$apellidos = strtoupper($apellidos);}
             $sexo = addslashes($_POST['sexo']);
             if (empty($sexo)) {
                 $mensaje = 'Campo sexo requerido';
                 popUpWarning($mensaje);
-            }
+            } else {$sexo = strtoupper($sexo);}
             $pais = 'BOLIVIA';
             $lugarnacimiento = addslashes($_POST['lugarnacimiento']);
             if (empty($lugarnacimiento)) {
@@ -97,9 +112,10 @@
                 if (empty($conyugenombre) && empty($conyugeapellido)){
                     $mensaje='Datos del conyuge requerido';
                     popUpWarning($mensaje);
-                }
+                } else {$datosconyuge = strtoupper($datosconyuge);}
             }
             $hijos = addslashes ($_POST['hijos']);
+            $hijos = strtoupper($hijos);
             $edad = addslashes($_POST['edad']);
             if (empty($edad)) {
                 $mensaje = 'Debe elegir su edad';
@@ -117,7 +133,7 @@
             if (empty($domicilio)) {
                 $mensaje = 'Ingrese el domicilio donde vive';
                 popUpWarning($mensaje);
-            }
+            } else {$domicilio = strtoupper($domicilio);}
             $celular = addslashes($_POST['celular']);
             if (empty($celular)) {
                 $celular = 0;
@@ -128,11 +144,12 @@
                 popUpWarning($mensaje);
             }
             $ocupacion = addslashes($_POST['ocupacion']);
+            $ocupacion = strtoupper($ocupacion);
             $nombreiglesia = addslashes($_POST['nombreiglesia']);
             if (empty($nombreiglesia)) {
                 $mensaje = 'Ingrese el nombre de la iglesia';
                 popUpWarning($mensaje);
-            }
+            } else {$nombreiglesia = strtoupper($nombreiglesia);}
             $denominacion = addslashes($_POST['denominacion']);
             if (empty($denominacion)) {
                 $mensaje = 'Ingrese la denominacion';
@@ -142,12 +159,12 @@
             if (empty($direccioniglesia)) {
                 $mensaje = 'Ingrese la direccion de la iglesia';
                 popUpWarning($mensaje);
-            }
+            } else {$direccioniglesia = strtoupper($direccioniglesia);}
             $domicilioiglesia = addslashes($_POST['domicilioiglesia']);
             if (empty($domicilioiglesia)) {
                 $mensaje = 'Ingrese el domicilio de la iglesia';
                 popUpWarning($mensaje);
-            }
+            } else {$domicilioiglesia = strtoupper($domicilioiglesia);}
             $miembro = addslashes($_POST['miembro']);
             if (empty($miembro)) {
                 $mensaje = 'Seleccione si es miembro de la iglesia';
@@ -162,7 +179,7 @@
             if (empty($pastor)) {
                 $mensaje = 'Ingrese el nombre del pastor';
                 popUpWarning($mensaje);
-            }
+            } else {$pastor = strtoupper($pastor);}
             $telefonopastor = addslashes($_POST['telefonopastor']);
             if (empty($telefonopastor)) {
                 $mensaje = 'Ingrese el telefono del pastor';
@@ -183,6 +200,78 @@
                 $mensaje = 'Debe elegir el año de postulación';
                 popUpWarning($mensaje);
             }
+            $fotografia = addslashes($_FILES['fotografia']['name']);
+            if(!empty($fotografia)) {
+
+                $fileName = basename($_FILES['fotografia']['name']);
+                $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+                $allowTypes = array('jpg','png','jpeg');
+                if(in_array($fileType, $allowTypes)){
+                    $fotografia = $_FILES['fotografia']['tmp_name'];
+                    $fotoPerfil = addslashes(file_get_contents($fotografia));
+                }else{
+                    $mensaje = 'Lo siento, solo se admiten los formatos JPG, JPEG y PNG para poder subir.';
+                    popUpWarning($mensaje);
+                }
+            }else{
+                $mensaje = 'Debe seleccionar una fotografia personal valida.';
+                popUpWarning($mensaje);
+            }
+            $fotocopiacarnet = addslashes($_FILES['fotocopiacarnet']['name']);
+            if(!empty($fotocopiacarnet)) {
+
+                $fileName = basename($_FILES['fotocopiacarnet']['name']);
+                $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+                $allowTypes = array('jpg','png','jpeg','pdf');
+                if(in_array($fileType, $allowTypes)){
+                    $fotocopiacarnet = $_FILES['fotocopiacarnet']['tmp_name'];
+                    $fotoCarnet = addslashes(file_get_contents($fotocopiacarnet));
+                }else{
+                    $mensaje = 'Lo siento, formatos para fotocopia carnet son: JPG, JPEG, PNG y PDF para poder subir.';
+                    popUpWarning($mensaje);
+                }
+            }else{
+                $mensaje = 'Debe seleccionar una fotocopia de carnet valida.';
+                popUpWarning($mensaje);
+            }
+            $cartareferencia = addslashes($_FILES['cartareferencia']['name']);
+            if(!empty($cartareferencia)) {
+
+                $fileName = basename($_FILES['cartareferencia']['name']);
+                $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+                $allowTypes = array('jpg','png','jpeg','pdf');
+                if(in_array($fileType, $allowTypes)){
+                    $cartareferencia = $_FILES['cartareferencia']['tmp_name'];
+                    $fotoReferencia = addslashes(file_get_contents($cartareferencia));
+                }else{
+                    $mensaje = 'Lo siento, formatos para la carte de referencia son: JPG, JPEG, PNG y PDF para poder subir.';
+                    popUpWarning($mensaje);
+                }
+            }else{
+                $mensaje = 'Debe seleccionar una carta de referencia valida.';
+                popUpWarning($mensaje);
+            }
+            $certificadobachiller = addslashes($_FILES['certificadobachiller']['name']);
+            if(!empty($certificadobachiller)) {
+
+                $fileName = basename($_FILES['certificadobachiller']['name']);
+                $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+                $allowTypes = array('jpg','png','jpeg','pdf');
+                if(in_array($fileType, $allowTypes)){
+                    $certificadobachiller = $_FILES['certificadobachiller']['tmp_name'];
+                    $fotoCertificado = addslashes(file_get_contents($certificadobachiller));
+                }else{
+                    $mensaje = 'Lo siento, formatos para el certificado de bachiller o libreta son: JPG, JPEG, PNG y PDF para poder subir.';
+                    popUpWarning($mensaje);
+                }
+            }else{
+                $mensaje = 'Debe seleccionar un certificado de bachiller valido.';
+                popUpWarning($mensaje);
+            }
             $usuario = addslashes($_POST['usuario']);
             if (empty($usuario)) {
                 $mensaje = 'Ingrese su usuario';
@@ -195,8 +284,8 @@
             }
             $contrasena =  sha1($contrasena);
 
-            $sql = "INSERT INTO cedadmision.Postulante (Cedula, Expedido, Nombres, Apellidos, Sexo, Pais, Lugar_Nacimiento, Fecha_Nacimiento, Estado_Civil, Edad, Datos_Conyugue, Datos_Hijos, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Ocupacion, Nombre_Iglesia, Denominacion, Direccion_Iglesia, Domicilio_Iglesia, Miembro_Iglesia, Bautizado, Nombre_Pastor, Telefono_Pastor, Correo_Pastor, Testimonio, Postulacion, Usuario, Contrasena)
-                    VALUES($cedula, '$expedido', '$nombres', '$apellidos', '$sexo', '$pais', '$lugarnacimiento', '$fechanacimiento', '$estadocivil', $edad, '$datosconyuge', '$hijos', '$direcciondep', '$domicilio', $celular, '$correo', '$ocupacion','$nombreiglesia', '$denominacion', '$direccioniglesia', '$domicilioiglesia', '$miembro', '$bautizado', '$pastor', $telefonopastor, '$correpastor', '$testimonio', '$postulacion', '$usuario', '$contrasena')";
+            $sql = "INSERT INTO cedadmision.Postulante (Cedula, Expedido, Nombres, Apellidos, Sexo, Pais, Lugar_Nacimiento, Fecha_Nacimiento, Estado_Civil, Edad, Datos_Conyugue, Datos_Hijos, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Ocupacion, Nombre_Iglesia, Denominacion, Direccion_Iglesia, Domicilio_Iglesia, Miembro_Iglesia, Bautizado, Nombre_Pastor, Telefono_Pastor, Correo_Pastor, Testimonio, Postulacion, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Usuario, Contrasena)
+                    VALUES('$cedula', '$expedido', '$nombres', '$apellidos', '$sexo', '$pais', '$lugarnacimiento', '$fechanacimiento', '$estadocivil', $edad, '$datosconyuge', '$hijos', '$direcciondep', '$domicilio', $celular, '$correo', '$ocupacion','$nombreiglesia', '$denominacion', '$direccioniglesia', '$domicilioiglesia', '$miembro', '$bautizado', '$pastor', $telefonopastor, '$correpastor', '$testimonio', '$postulacion', '$fotoPerfil', '$fotoCarnet', '$fotoReferencia', '$fotoCertificado', '$usuario', '$contrasena')";
 
             $retval = mysqli_query($con,$sql);
             if($retval) {
@@ -216,8 +305,7 @@
         <div class="row">
             <h2>Formulario para postulantes Nacionales</h2>
             <div class="col-md-10 ">
-                <!-- <form class="form-horizontal" method="post" name="registration"> -->
-                <form class="form-horizontal" method="post" id="basic-form">
+                <form class="form-horizontal" action="" method="post" id="nacional-form" enctype="multipart/form-data">
                     <fieldset>
                         <legend>Datos personales</legend>
                         <div class="form-group">
@@ -228,22 +316,22 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-user"></em>
                                     </div>
-                                    <input type="number" class="form-control" id="cedula" name="cedula"
+                                    <input class="form-control" id="cedula" name="cedula"
                                         placeholder="Cédula de Identidad" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <select class="form-control" id="expedido" name="expedido" required>
                                     <option value="" selected>Expedido en</option>
-                                    <option value="CB">Cochabamba</option>
-                                    <option value="SC">Santa Cruz</option>
-                                    <option value="LP">La Paz</option>
-                                    <option value="OR">Oruro</option>
-                                    <option value="CH">Chuquisaca</option>
-                                    <option value="PT">Potosi</option>
-                                    <option value="PA">Pando</option>
-                                    <option value="BN">Beni</option>
-                                    <option value="TJ">Tarija</option>
+                                    <option value="COCHABAMBA">Cochabamba</option>
+                                    <option value="SANTA CRUZ">Santa Cruz</option>
+                                    <option value="LA PAZ">La Paz</option>
+                                    <option value="ORURO">Oruro</option>
+                                    <option value="CHUQUISACA">Chuquisaca</option>
+                                    <option value="POTOSI">Potosi</option>
+                                    <option value="PANDO">Pando</option>
+                                    <option value="BENI">Beni</option>
+                                    <option value="TARIJA">Tarija</option>
                                 </select>
                             </div>
                         </div>
@@ -288,15 +376,15 @@
                                     </div>
                                     <select class="form-control" id="lugarnacimiento" name="lugarnacimiento" required>
                                         <option value="" selected>Departamento</option>
-                                        <option value="CB">Cochabamba</option>
-                                        <option value="SC">Santa Cruz</option>
-                                        <option value="LP">La Paz</option>
-                                        <option value="OR">Oruro</option>
-                                        <option value="CH">Chuquisaca</option>
-                                        <option value="PT">Potosi</option>
-                                        <option value="PA">Pando</option>
-                                        <option value="BN">Beni</option>
-                                        <option value="TJ">Tarija</option>
+                                        <option value="COCHABAMBA">Cochabamba</option>
+                                        <option value="SANTA CRUZ">Santa Cruz</option>
+                                        <option value="LA PAZ">La Paz</option>
+                                        <option value="ORURO">Oruro</option>
+                                        <option value="CHUQUISACA">Chuquisaca</option>
+                                        <option value="POTOSI">Potosi</option>
+                                        <option value="PANDO">Pando</option>
+                                        <option value="BENI">Beni</option>
+                                        <option value="TARIJA">Tarija</option>
                                     </select>
                                 </div>
                             </div>
@@ -381,15 +469,15 @@
                                     </div>
                                     <select class="form-control" id="direcciondep" name="direcciondep" required>
                                         <option value="" selected>Departamento</option>
-                                        <option value="CB">Cochabamba</option>
-                                        <option value="SC">Santa Cruz</option>
-                                        <option value="LP">La Paz</option>
-                                        <option value="OR">Oruro</option>
-                                        <option value="CH">Chuquisaca</option>
-                                        <option value="PT">Potosi</option>
-                                        <option value="PA">Pando</option>
-                                        <option value="BN">Beni</option>
-                                        <option value="TJ">Tarija</option>
+                                        <option value="COCHABAMBA">Cochabamba</option>
+                                        <option value="SANTA CRUZ">Santa Cruz</option>
+                                        <option value="LA PAZ">La Paz</option>
+                                        <option value="ORURO">Oruro</option>
+                                        <option value="CHUQUISACA">Chuquisaca</option>
+                                        <option value="POTOSI">Potosi</option>
+                                        <option value="PANDO">Pando</option>
+                                        <option value="BENI">Beni</option>
+                                        <option value="TARIJA">Tarija</option>
                                     </select>
                                 </div>
                             </div>
@@ -463,15 +551,15 @@
                                     </div>
                                     <select class="form-control" id="direccioniglesia" name="direccioniglesia" required>
                                         <option value="" selected>Departamento</option>
-                                        <option value="CB">Cochabamba</option>
-                                        <option value="SC">Santa Cruz</option>
-                                        <option value="LP">La Paz</option>
-                                        <option value="OR">Oruro</option>
-                                        <option value="CH">Chuquisaca</option>
-                                        <option value="PT">Potosi</option>
-                                        <option value="PA">Pando</option>
-                                        <option value="BN">Beni</option>
-                                        <option value="TJ">Tarija</option>
+                                        <option value="COCHABAMBA">Cochabamba</option>
+                                        <option value="SANTA CRUZ">Santa Cruz</option>
+                                        <option value="LA PAZ">La Paz</option>
+                                        <option value="ORURO">Oruro</option>
+                                        <option value="CHUQUISACA">Chuquisaca</option>
+                                        <option value="POTOSI">Potosi</option>
+                                        <option value="PANDO">Pando</option>
+                                        <option value="BENI">Beni</option>
+                                        <option value="TARIJA">Tarija</option>
                                     </select>
                                 </div>
                             </div>
@@ -556,8 +644,8 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Fotografia 4X4</label>
                             <div class="col-md-5">
-                                <input type="file" name="fotografia" id="fotografia"
-                                    accept="image/png, .jpeg, .jpg, image/gif" />
+                                <input type="file" class="custom-file-input" name="fotografia" id="fotografia"
+                                    accept="image/png, .jpeg, .jpg" lang="es" required />
                             </div>
                             <div class="col-md-3">
                                 <img id="imgSalida" width="50%" height="50%" src="" alt="" />
@@ -566,20 +654,24 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Fotocopia de carnet</label>
                             <div class="col-md-4">
-                                <input type="file" class="custom-file-input" id="fotocopiacarnet" lang="es">
+                                <input type="file" class="custom-file-input" name="fotocopiacarnet" id="fotocopiacarnet"
+                                    accept="image/png, .jpeg, .jpg, .pdf" lang="es" required />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Carta de referencia de la Iglesia</label>
                             <div class="col-md-4">
-                                <input type="file" class="custom-file-input" id="cartareferencia" lang="es">
+                                <input type="file" class="custom-file-input" name="cartareferencia" id="cartareferencia"
+                                    accept="image/png, .jpeg, .jpg, .pdf" lang="es" required />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Fotocopia certificado bachiller o libreta
                                 escolar</label>
                             <div class="col-md-4">
-                                <input type="file" class="custom-file-input" id="certificadobachiller" lang="es">
+                                <input type="file" class="custom-file-input" name="certificadobachiller"
+                                    id="certificadobachiller" accept="image/png, .jpeg, .jpg, .pdf" lang="es"
+                                    required />
                             </div>
                         </div>
                         <legend>Definir usuario</legend>
@@ -591,7 +683,7 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <input class="form-control input-md" id="usuario" type="text"
-                                        placeholder="Nombre de usuario" name="usuario" required/>
+                                        placeholder="Nombre de usuario" name="usuario" required />
                                 </div>
                             </div>
                         </div>
@@ -603,7 +695,7 @@
                                         <em class="fa fa-lock"></em>
                                     </div>
                                     <input class="form-control" type="password" id="contrasena" placeholder="Contraseña"
-                                        name="contrasena" minlength="8" required/>
+                                        name="contrasena" minlength="8" required />
                                 </div>
                             </div>
                         </div>
@@ -673,52 +765,32 @@ $(function() {
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#basic-form").validate();
-});
-</script>
-
-<script type="text/javascript">
-// Wait for the DOM to be ready
-$(function() {
-    // Initialize form validation on the registration form.
-    // It has the name attribute "registration"
-    $("form[name='registration']").validate({
-        // Specify validation rules
+    $("#nacional-form").validate({
         rules: {
-            // The key name on the left side is the name attribute
-            // of an input field. Validation rules are defined
-            // on the right side
             cedula: {
-                required: true,
                 minlength: 5
             },
-            firstname: "required",
-            lastname: "required",
-            email: {
-                required: true,
-                // Specify that email should be validated
-                // by the built-in "email" rule
-                email: true
+            nombres: {
+                minlength: 3
             },
-            password: {
-                required: true,
-                minlength: 5
+            apellidos: {
+                minlength: 3
             }
         },
-        // Specify validation error messages
         messages: {
-            firstname: "Please enter your firstname",
-            lastname: "Please enter your lastname",
-            password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 5 characters long"
+            cedula: {
+                required: "Ingrese una numero valido",
+                minlength: "EL numero ingresado no es valido"
             },
-            email: "Please enter a valid email address"
-        },
-        // Make sure the form is submitted to the destination defined
-        // in the "action" attribute of the form when valid
-        submitHandler: function(form) {
-            form.submit();
+            nombres: {
+                minlength: "Escriba un nombre correcto"
+            },
+            apellidos: {
+                minlength: "Escriba un apellido correcto"
+            },
+            lugarnacimiento: {
+                required: "Seleccione lugar de nacimiento"
+            }
         }
     });
 });

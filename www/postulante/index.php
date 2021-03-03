@@ -5,7 +5,7 @@
     session_start();
     $user_check=$_SESSION['postulante'];
     $ses_sql=mysqli_query($con, "SELECT Cedula, Expedido, Nombres, Apellidos, Sexo, Lugar_Nacimiento, Fecha_Nacimiento, Estado_Civil,
-        Edad, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Usuario FROM cedadmision.Postulante WHERE Usuario = '$user_check'");
+        Edad, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Foto_Perfil, Foto_Carnet, Usuario FROM cedadmision.Postulante WHERE Usuario = '$user_check'");
     $row = mysqli_fetch_assoc($ses_sql);
 
     $usuario =$row["Usuario"];
@@ -15,6 +15,8 @@
     $edad =$row["Edad"];
     $celular =$row["Celular"];
     $ciudad =$row["Direccion_Departamento"];
+    $fotoPerfil =$row["Foto_Perfil"];
+    $fotoCarnet =$row["Foto_Carnet"];
 
     if (!isset($_SESSION['postulante'])) {
         header("location: ../index.php"); 
@@ -49,8 +51,8 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="text-center">
-                    <img src="../images/logos/pv_blanco.png" alt="" style="border-radius: 100%;" width="150"
-                        height="150">
+                    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($fotoPerfil); ?>" alt=""
+                        style="border-radius: 100%;" width="150" height="150">
                     </br>
                     </br>
                     <a href="../controler/logout.php" class="btn btn-info btn-sm" role="button"
@@ -127,7 +129,9 @@
                                 <label class="col-md-2 control-label" for="Correo electronico">Datos Padre</label>
                                 <div class="col-md-5">
                                     <div class="input-group">
-                                        <i>Nombres</i>
+                                        <a href="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>" download="fotoCarnet.pdf">
+                                            <img src="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>" alt="fotoCarnet">
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
