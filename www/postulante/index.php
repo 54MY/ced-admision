@@ -5,7 +5,7 @@
     session_start();
     $user_check=$_SESSION['postulante'];
     $ses_sql=mysqli_query($con, "SELECT Cedula, Expedido, Nombres, Apellidos, Sexo, Lugar_Nacimiento, Fecha_Nacimiento, Estado_Civil,
-        Edad, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Foto_Perfil, Foto_Carnet, Usuario FROM cedadmision.Postulante WHERE Usuario = '$user_check'");
+        Edad, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Foto_Perfil, Foto_Carnet, Estado_Vida, Estado_Direccion, Usuario FROM cedadmision.Postulante WHERE Usuario = '$user_check'");
     $row = mysqli_fetch_assoc($ses_sql);
 
     $usuario =$row["Usuario"];
@@ -17,6 +17,8 @@
     $ciudad =$row["Direccion_Departamento"];
     $fotoPerfil =$row["Foto_Perfil"];
     $fotoCarnet =$row["Foto_Carnet"];
+    $estadoVida =$row["Estado_Vida"];
+    $estadoDireccion =$row["Estado_Direccion"];
 
     if (!isset($_SESSION['postulante'])) {
         header("location: ../index.php"); 
@@ -41,6 +43,32 @@
     body {
         background-color: #f5f5f5;
     }
+
+    .blink {
+        position: relative;
+        animation-name: example;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        text-align: center;
+    }
+
+    @keyframes example {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
     </style>
 </head>
 
@@ -55,6 +83,21 @@
                         style="border-radius: 100%;" width="150" height="150">
                     </br>
                     </br>
+                    <?php 
+                        if (empty($estadoVida) && empty($estadoDireccion)) {
+                            echo '<div class="blink" style="color: red;">';
+                            echo '<p>Pendinete a revision en vida</p>';
+                            echo '</div>';
+                        } else if (!empty($estadoVida) && empty($estadoDireccion)) {
+                            echo '<div class="blink" style="color: orange;">';
+                            echo '<p>Ahora puede comunicarse y realizar los depositos</p>';
+                            echo '</div>';
+                        } else if (!empty($estadoVida) && !empty($estadoDireccion)) {
+                            echo '<div class="blink" style="color: green;">';
+                            echo '<p>Felicidades!!! ya esres un alumno!!!</p>';
+                            echo '</div>';
+                        }
+                    ?>
                     <a href="../controler/logout.php" class="btn btn-info btn-sm" role="button"
                         aria-pressed="true">Cerrar sesión</a>
                 </div>
@@ -129,8 +172,10 @@
                                 <label class="col-md-2 control-label" for="Correo electronico">Datos Padre</label>
                                 <div class="col-md-5">
                                     <div class="input-group">
-                                        <a href="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>" download="fotoCarnet.pdf">
-                                            <img src="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>" alt="fotoCarnet">
+                                        <a href="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>"
+                                            download="fotoCarnet.pdf">
+                                            <img src="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>"
+                                                alt="fotoCarnet">
                                         </a>
                                     </div>
                                 </div>

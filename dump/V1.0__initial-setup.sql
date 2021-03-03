@@ -61,7 +61,9 @@ CREATE TABLE cedadmision.Postulante (
 	Carta_Referencia longblob NOT NULL,
 	Foto_Bachiler longblob NOT NULL,
 	Estado_Vida varchar(100),
+	Usuario_Vida varchar(100),
 	Estado_Direccion varchar(100),
+	Usuario_Direccion varchar(100),
 	Usuario varchar(100) NOT NULL,
 	Contrasena varchar(250) NOT NULL,
 	Fecha_Registro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP

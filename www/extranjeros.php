@@ -228,12 +228,12 @@
                 $fileName = basename($_FILES['fotocopiacarnet']['name']);
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
 
-                $allowTypes = array('jpg','png','jpeg','pdf');
+                $allowTypes = array('pdf');
                 if(in_array($fileType, $allowTypes)){
                     $fotocopiacarnet = $_FILES['fotocopiacarnet']['tmp_name'];
                     $fotoCarnet = addslashes(file_get_contents($fotocopiacarnet));
                 }else{
-                    $mensaje = 'Lo siento, formatos para fotocopia carnet son: JPG, JPEG, PNG y PDF para poder subir.';
+                    $mensaje = 'Lo siento, el formato para fotocopia carnet debe ser PDF para poder subir.';
                     popUpWarning($mensaje);
                 }
             }else{
@@ -246,12 +246,12 @@
                 $fileName = basename($_FILES['cartareferencia']['name']);
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
 
-                $allowTypes = array('jpg','png','jpeg','pdf');
+                $allowTypes = array('pdf');
                 if(in_array($fileType, $allowTypes)){
                     $cartareferencia = $_FILES['cartareferencia']['tmp_name'];
                     $fotoReferencia = addslashes(file_get_contents($cartareferencia));
                 }else{
-                    $mensaje = 'Lo siento, formatos para la carte de referencia son: JPG, JPEG, PNG y PDF para poder subir.';
+                    $mensaje = 'Lo siento, el formatos para la carte de referencia debe ser PDF para poder subir.';
                     popUpWarning($mensaje);
                 }
             }else{
@@ -264,12 +264,12 @@
                 $fileName = basename($_FILES['certificadobachiller']['name']);
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
 
-                $allowTypes = array('jpg','png','jpeg','pdf');
+                $allowTypes = array('pdf');
                 if(in_array($fileType, $allowTypes)){
                     $certificadobachiller = $_FILES['certificadobachiller']['tmp_name'];
                     $fotoCertificado = addslashes(file_get_contents($certificadobachiller));
                 }else{
-                    $mensaje = 'Lo siento, formatos para el certificado de bachiller o libreta son: JPG, JPEG, PNG y PDF para poder subir.';
+                    $mensaje = 'Lo siento, el formatos para el certificado de bachiller o libreta escolar debe ser PDF para poder subir.';
                     popUpWarning($mensaje);
                 }
             }else{
@@ -296,7 +296,7 @@
                 $mensaje = 'Te registraste con exito. \n\n En unos días nos comunicaremos contigo';
                 popUpSuccess('Registrado con exito', $mensaje);
             } else if(! $retval ) {
-                $mensaje = 'Nose pudo registrar';
+                $mensaje = 'Nose pudo registrar, contacte al administrador';
                 popUpEnd('Error en Servidor',$mensaje);
                 die('Could not enter data: ' . mysqli_error());
             }
@@ -638,14 +638,14 @@
                             <label class="col-md-4 control-label">Fotocopia de carnet</label>
                             <div class="col-md-4">
                                 <input type="file" class="custom-file-input" name="fotocopiacarnet" id="fotocopiacarnet"
-                                    accept="image/png, .jpeg, .jpg, .pdf" lang="es" required />
+                                    accept="application/pdf" lang="es" required />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Carta de referencia de la Iglesia</label>
                             <div class="col-md-4">
                                 <input type="file" class="custom-file-input" name="cartareferencia" id="cartareferencia"
-                                    accept="image/png, .jpeg, .jpg, .pdf" lang="es" required />
+                                    accept="application/pdf" lang="es" required />
                             </div>
                         </div>
                         <div class="form-group">
@@ -653,7 +653,7 @@
                                 escolar</label>
                             <div class="col-md-4">
                                 <input type="file" class="custom-file-input" name="certificadobachiller"
-                                    id="certificadobachiller" accept="image/png, .jpeg, .jpg, .pdf" lang="es"
+                                    id="certificadobachiller" accept="application/pdf" lang="es"
                                     required />
                             </div>
                         </div>

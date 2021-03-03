@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    if (isset($_SESSION['admin'])) {
+        header("location: direccion/index.php"); 
+    }
+    if (isset($_SESSION['postulante'])) {
+        header("location: postulante/index.php"); 
+    }
+    include('controler/login.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 

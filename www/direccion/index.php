@@ -27,6 +27,21 @@
     body {
         background-color: #f5f5f5;
     }
+
+    #buscar:focus {
+        outline: none !important;
+    }
+
+    #buscar {
+        background-image: url(../vendor/searchicon.png);
+        background-position: 10px 7px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 13px;
+        padding: 7px 17px 7px 38px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
     </style>
 
 </head>
@@ -59,6 +74,24 @@
                die('Could not enter data: ' . mysqli_error());
             }
         }
+
+        if(isset($_POST['aprobar'])){
+            $id_user = addslashes ($_POST['id_user']);
+            if (empty($id_user)){
+                $mensaje='Usuario incorrecto';
+                popUpWarning($mensaje);
+            }
+            $sql = "UPDATE cedadmision.Postulante SET Estado_Direccion='apto', Usuario_Direccion='".$_SESSION['admin']."' WHERE id=" .$id_user;
+            $retval = mysqli_query($con,$sql);
+            if($retval) {
+                $mensaje = 'El postulante ahora pasará a ser alumno oficial del C.E.D.';
+                popUpSuccess('Postulante autorizado', $mensaje);
+            } else if(! $retval ) {
+                $mensaje = 'Nose pudo registrar, contacte al administrador';
+                popUpEnd('Error en Servidor',$mensaje);
+               die('Could not enter data: ' . mysqli_error());
+            }
+        }
     ?>
     </br>
     </br>
@@ -79,7 +112,7 @@
             </div>
             <div class="col-md-10">
                 <div>
-                    <h2>Perfil de Administracion</h2>
+                    <h2>Perfil de Dirección - <?php echo $_SESSION['admin']; ?></h2>
                 </div>
                 <ul class="nav nav-tabs">
                     <li class="active">
@@ -101,9 +134,9 @@
                             <?php
                                 include("../config/db.php");
                                 include("../config/conexion.php");
-                                $query = "SELECT id, Nombres, Apellidos, Edad, Celular, Lugar_Nacimiento FROM Postulante";
+                                $query = "SELECT id, Nombres, Apellidos, Edad, Celular, Lugar_Nacimiento, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion FROM Postulante WHERE Estado_Vida='apto'";
                                 $result = mysqli_query($con,$query); 
-                                echo '<table class="table table-striped">';
+                                echo '<table id="postulante-tabla" class="table table-striped">';
                                 echo '<thead>
                                         <tr>
                                             <th></th>
@@ -112,20 +145,45 @@
                                             <th>Apellidos</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
-                                            <th>Ciudad</th>
+                                            <th>Fotoc. Carnet</th>
+                                            <th>Cart. Regerencia</th>
+                                            <th>Cert. Bachiller</th>
                                             <th>Contraseña</th>
+                                            <th>Estado</th>
                                         </tr>
                                     </thead>';
                                 while($row = $result->fetch_assoc()){
-                                    echo '<tr>';
-                                        echo '<td><a><span class="fa fa-search" data-toggle="modal" data-target="#detallesCuenta"></span></a></td>';
+                                    if ($row['Estado_Direccion']=='apto'){
+                                        echo '<tr class="success">';
+                                    } else {
+                                        echo '<tr class="warning">';
+                                    }
+                                        echo '<td><a><span class="detalles-cuenta fa fa-search" 
+                                                data-foto-perfil="' . base64_encode($row['Foto_Perfil']) . '"
+                                                data-nombre="' . $row['Nombres'] . '"
+                                                data-apellido="' . $row['Apellidos'] . '"
+                                                data-edad="' . $row['Edad'] . '"
+                                                data-sexo="' . $row['Sexo'] . '"
+                                                data-celular="' . $row['Celular'] . '"
+                                                data-ciudad="' . $row['Ciudad'] . '"
+                                                data-pais="' . $row['Pais'] . '"
+                                                data-usuario="' . $row['Usuario'] . '"
+                                                data-correo="' . $row['Correo'] . '"
+                                                data-toggle="modal" data-target="#detallesCuenta"></span></a></td>';
                                         echo '<td>' . $row['id'] . '</td>';
                                         echo '<td>' . $row['Nombres'] . '</td>';
                                         echo '<td>' . $row['Apellidos'] . '</td>';
                                         echo '<td>' . $row['Edad'] . '</td>';
                                         echo '<td>' . $row['Celular'] . '</td>';
-                                        echo '<td>' . $row['Lugar_Nacimiento'] . '</td>';
-                                        echo '<td><button type="button" class="cambiar-contrasena btn btn-default btn-sm" data-id="' . $row['id'] . '" data-toggle="modal" data-target="#cambiarContrasena">Cambiar</button><td>';
+                                        echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Foto_Carnet']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_FOTOCOPIA_CARNET.pdf">Descargar</a></td>';
+                                        echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Carta_Referencia']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_CARTA_REFERENCIA.pdf">Descargar</a></td>';
+                                        echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Foto_Bachiler']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_CERTIFICADO_BACHILLER.pdf">Descargar</a></td>';
+                                        echo '<td><button type="button" class="cambiar-contrasena btn btn-default btn-sm" data-id="' . $row['id'] . '" data-toggle="modal" data-target="#cambiarContrasena">Cambiar</button></td>';
+                                        if ($row['Estado_Direccion']=='apto'){
+                                            echo '<td><button type="button" class="autorizar-postulante btn btn-success btn-sm">Autorizado</button></td>';
+                                        } else {
+                                            echo '<td><button type="button" class="autorizar-postulante btn btn-warning btn-sm" data-id="' . $row['id'] . '" data-toggle="modal" data-target="#autorizarPostulante">Aprobar</button></td>';
+                                        }
                                     echo '</tr>';
                                 }
                                 echo '</table>';
@@ -176,7 +234,33 @@
             </div>
         </div>
 
-        <!-- Modal Acampante -->
+        <!-- Modal Aprobar Postulante -->
+        <div class="modal fade" id="autorizarPostulante" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h5 class="modal-title center" id="exampleModalLabel"><strong>Aprobar postulante</strong></h5>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <p>Al darle aceptar, esta confirmando que el postulante es apto para poder participar del
+                                C.E.D. 2021. El cual pasará a su validacion en Administración</p>
+                            <input style="display:none" name="id_user" id="id_user"
+                                class="form-control input-sm chat-input" type="text" />
+                            </br>
+                            <div class="wrapper">
+                                <span class="group-btn">
+                                    <button type="submit" name="aprobar" class="btn btn-info">Aprobar</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Postulante -->
         <div class="modal fade" id="detallesCuenta" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -186,149 +270,91 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Nombres</label>
+                            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($fotoPerfil); ?>"
+                                id="foto-perfil" alt="" class="img-thumbnail mx-auto d-block"
+                                style="display: block;margin-left: auto;margin-right: auto;" width="150" height="150">
+                        </div>
+                        </br>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Nombres</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="nombre" id="nombre"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Apellidos</label>
+                            <label class="col-md-2 control-label">Apellidos</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="apellido" id="apellido"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Edad</label>
+                            <label class="col-md-2 control-label">Edad</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="edad" id="edad"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Celular</label>
+                            <label class="col-md-2 control-label">Sexo</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="sexo" id="sexo"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Pais</label>
+                            <label class="col-md-2 control-label">Celular</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="celular" id="celular"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Ciudad</label>
+                            <label class="col-md-2 control-label">Pais</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="pais" id="pais"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Usuario</label>
+                            <label class="col-md-2 control-label">Ciudad</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="ciudad" id="ciudad"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="Correo electronico">Correo</label>
+                            <label class="col-md-2 control-label">Usuario</label>
                             <div class="col-md-10">
                                 <div class="input-group">
-                                    <i>Ejemplo ....</i>
+                                    <i><span name="usuario" id="usuario"></span></i>
                                 </div>
                             </div>
                         </div>
                         </br>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Link Taller -->
-        <div class="modal fade" id="linkTaller" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h5 class="modal-title center" id="exampleModalLabel">Insertar Link de la sala</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post">
-                            <input name="link_sala" type="text" id="link_sala" class="form-control input-sm chat-input"
-                                placeholder="link de sala" />
-                            <input style="display:none" name="id_taller" id="id_taller"
-                                class="form-control input-sm chat-input" type="text" />
-                            </br>
-                            <div class="wrapper">
-                                <span class="group-btn">
-                                    <button type="submit" name="insert_link" class="btn btn-info">Crear</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Crear Taller -->
-        <div class="modal fade" id="crearTaller" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h5 class="modal-title center" id="exampleModalLabel">Detalles Taller</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label" for="Nombre taller">Nombre taller</label>
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <em class="fa fa-university"></em>
-                                        </div>
-                                        <input require="true" id="nombreTaller" name="nombreTaller" type="text"
-                                            placeholder="Nombre taller" class="form-control input-md">
-                                    </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Correo</label>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <i><span name="correo" id="correo"></span></i>
                                 </div>
-                                </br>
-                                </br>
-                                <label class="col-md-3 control-label" for="Taller">Taller para</label>
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <em class="fa fa-users"></em>
-                                        </div>
-                                        <select require="true" class="form-control" id="edades" name="edades">
-                                            <option value="" selected>Selecciona la categoria</option>
-                                            <option value="MAYORES">Mayores</option>
-                                            <option value="MENORES">Menores</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                </br>
-                                </br>
-                                <button type="submit" name="taler" class="btn btn-info">Crear</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -337,17 +363,63 @@
     </div>
 
     <script type="text/javascript">
-    $(document).on("click", ".link-taller", function() {
-        var myBookId = $(this).data('id');
-        $(".modal-body #id_taller").val(myBookId);
-    });
-    </script>
-
-    <script type="text/javascript">
     $(document).on("click", ".cambiar-contrasena", function() {
         var myBookId = $(this).data('id');
         $(".modal-body #id_user").val(myBookId);
     });
+    </script>
+
+    <script type="text/javascript">
+    $(document).on("click", ".autorizar-postulante", function() {
+        var myBookId = $(this).data('id');
+        $(".modal-body #id_user").val(myBookId);
+    });
+    </script>
+
+    <script type="text/javascript">
+    $(document).on("click", ".detalles-cuenta", function() {
+        var foto_perfil = $(this).data('foto-perfil');
+        $(".modal-body #foto-perfil").attr('src', 'data:image/png;charset=utf8;base64,' + foto_perfil);
+        var nombre = $(this).data('nombre');
+        $(".modal-body #nombre").text(nombre);
+        var apellido = $(this).data('apellido');
+        $(".modal-body #apellido").text(apellido);
+        var edad = $(this).data('edad');
+        $(".modal-body #edad").text(edad);
+        var sexo = $(this).data('sexo');
+        $(".modal-body #sexo").text(sexo);
+        var celular = $(this).data('celular');
+        $(".modal-body #celular").text(celular);
+        var pais = $(this).data('pais');
+        $(".modal-body #pais").text(pais);
+        var ciudad = $(this).data('ciudad');
+        $(".modal-body #ciudad").text(ciudad);
+        var usuario = $(this).data('usuario');
+        $(".modal-body #usuario").text(usuario);
+        var correo = $(this).data('correo');
+        $(".modal-body #correo").text(correo);
+    });
+    </script>
+
+    <script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("buscar");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("postulante-tabla");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
     </script>
 
 </body>
