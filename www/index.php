@@ -41,8 +41,8 @@
 
     <h1 class="site-heading text-center text-white d-none d-lg-block">
         <span class="site-heading-upper text-primary mb-3">Admision Centro de Evangelismo y Discipulado</span>
-        <span class="site-heading-lower">C.E.D.</span>
-        <!-- <img class="intro-img img-fluid mb-3 mb-lg-0 rounded site-heading-lower" src="images/logos/ced.png" alt=""> -->
+        <!-- <span class="site-heading-lower">C.E.D.</span> -->
+        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded site-heading-lower" style="height: 300px;" src="images/logos/ced.png" alt="">
     </h1>
 
     <!-- Navigation -->

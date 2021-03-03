@@ -200,7 +200,7 @@
 
             $retval = mysqli_query($con,$sql);
             if($retval) {
-                $mensaje = 'Te registraste con exito. \n\n\n En unos días nos comunicaremos contigo';
+                $mensaje = 'Te registraste con exito. \n\n En unos días nos comunicaremos contigo';
                 popUpSuccess('Felicidades', $mensaje);
             } else if(! $retval ) {
                 $mensaje = 'Nose pudo registrar';
@@ -216,7 +216,8 @@
         <div class="row">
             <h2>Formulario para postulantes Nacionales</h2>
             <div class="col-md-10 ">
-                <form class="form-horizontal" method="post">
+                <!-- <form class="form-horizontal" method="post" name="registration"> -->
+                <form class="form-horizontal" method="post" id="basic-form">
                     <fieldset>
                         <legend>Datos personales</legend>
                         <div class="form-group">
@@ -228,11 +229,11 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <input type="number" class="form-control" id="cedula" name="cedula"
-                                        placeholder="Cédula de Identidad">
+                                        placeholder="Cédula de Identidad" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <select class="form-control" id="expedido" name="expedido">
+                                <select class="form-control" id="expedido" name="expedido" required>
                                     <option value="" selected>Expedido en</option>
                                     <option value="CB">Cochabamba</option>
                                     <option value="SC">Santa Cruz</option>
@@ -254,12 +255,12 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <input type="text" class="form-control" id="nombres" name="nombres"
-                                        placeholder="Nombres">
+                                        placeholder="Nombres" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="apellidos" name="apellidos"
-                                    placeholder="Apellidos">
+                                    placeholder="Apellidos" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -267,12 +268,12 @@
                             <div class="col-sm-8">
                                 <div class="form-check form-check-inline">
                                     <input class="col-sm-1 form-check-input" type="radio" name="sexo" id="sexo"
-                                        value="Masculino">
+                                        value="Masculino" required>
                                     <label class="col-sm-2 form-check-label" for="sexo">Masculino</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="col-sm-1 form-check-input" type="radio" name="sexo" id="sexo"
-                                        value="Femenino">
+                                        value="Femenino" required>
                                     <label class="col-sm-2 form-check-label" for="sexo">Femenino</label>
                                 </div>
                             </div>
@@ -285,7 +286,7 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-user"></em>
                                     </div>
-                                    <select class="form-control" id="lugarnacimiento" name="lugarnacimiento">
+                                    <select class="form-control" id="lugarnacimiento" name="lugarnacimiento" required>
                                         <option value="" selected>Departamento</option>
                                         <option value="CB">Cochabamba</option>
                                         <option value="SC">Santa Cruz</option>
@@ -305,7 +306,7 @@
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                     <input type="text" class="form-control" id="fechanacimiento" name="fechanacimiento"
-                                        placeholder="Año/Mes/Dia" />
+                                        placeholder="Año/Mes/Dia" required />
                                 </div>
                             </div>
                         </div>
@@ -316,7 +317,7 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-user"></em>
                                     </div>
-                                    <select class="form-control" id="estadocivil" name="estadocivil">
+                                    <select class="form-control" id="estadocivil" name="estadocivil" required>
                                         <option value="" selected>Estado civil</option>
                                         <option value="Soltero">Soltero</option>
                                         <option value="Padre/Madre Soltero(a)">Padre/Madre Soltero(a)</option>
@@ -332,7 +333,7 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-birthday-cake"></em>
                                     </div>
-                                    <select require="true" class="form-control" id="edad" name="edad">
+                                    <select require="true" class="form-control" id="edad" name="edad" required>
                                         <option value="" selected>Que edad tienes?</option>
                                         <?php
                                             for ($i = 18; $i <= 70; $i++) {
@@ -378,7 +379,7 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-user"></em>
                                     </div>
-                                    <select class="form-control" id="direcciondep" name="direcciondep">
+                                    <select class="form-control" id="direcciondep" name="direcciondep" required>
                                         <option value="" selected>Departamento</option>
                                         <option value="CB">Cochabamba</option>
                                         <option value="SC">Santa Cruz</option>
@@ -394,7 +395,7 @@
                             </div>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="domicilio" name="domicilio"
-                                    placeholder="Provincia, nro de vivienda y calles">
+                                    placeholder="Provincia, nro de vivienda y calles" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -405,12 +406,12 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <input type="number" class="form-control" id="celular" name="celular"
-                                        placeholder="Teléfono fijo o celular">
+                                        placeholder="Teléfono fijo o celular" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <input type="email" class="form-control" id="correo" name="correo"
-                                    placeholder="Correo electrónico">
+                                    placeholder="Correo electrónico" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -434,7 +435,7 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <input type="text" class="form-control" id="nombreiglesia" name="nombreiglesia"
-                                        placeholder="Nombre de la Iglesia">
+                                        placeholder="Nombre de la Iglesia" required>
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -442,7 +443,7 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-user"></em>
                                     </div>
-                                    <select class="form-control" id="denominacion" name="denominacion">
+                                    <select class="form-control" id="denominacion" name="denominacion" required>
                                         <option value="" selected>Denominación:</option>
                                         <option value="LIBRES">LIBRES</option>
                                         <option value="UCE">UCE</option>
@@ -460,7 +461,7 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-user"></em>
                                     </div>
-                                    <select class="form-control" id="direccioniglesia" name="direccioniglesia">
+                                    <select class="form-control" id="direccioniglesia" name="direccioniglesia" required>
                                         <option value="" selected>Departamento</option>
                                         <option value="CB">Cochabamba</option>
                                         <option value="SC">Santa Cruz</option>
@@ -476,7 +477,7 @@
                             </div>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="domicilioiglesia" name="domicilioiglesia"
-                                    placeholder="Provincia, nro de vivienda y calles">
+                                    placeholder="Provincia, nro de vivienda y calles" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -484,12 +485,12 @@
                             <div class="col-sm-8">
                                 <div class="form-check form-check-inline">
                                     <input class="col-sm-1 form-check-input" type="radio" name="miembro" id="miembro"
-                                        value="si">
+                                        value="si" required>
                                     <label class="col-sm-2 form-check-label" for="miembro">Si</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="col-sm-1 form-check-input" type="radio" name="miembro" id="miembro"
-                                        value="no">
+                                        value="no" required>
                                     <label class="col-sm-2 form-check-label" for="miembro">No</label>
                                 </div>
                             </div>
@@ -499,12 +500,12 @@
                             <div class="col-sm-8">
                                 <div class="form-check form-check-inline">
                                     <input class="col-sm-1 form-check-input" type="radio" name="bautizado"
-                                        id="bautizado" value="si">
+                                        id="bautizado" value="si" required>
                                     <label class="col-sm-2 form-check-label" for="bautizado">Si</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="col-sm-1 form-check-input" type="radio" name="bautizado"
-                                        id="bautizado" value="no">
+                                        id="bautizado" value="no" required>
                                     <label class="col-sm-2 form-check-label" for="bautizado">No</label>
                                 </div>
                             </div>
@@ -517,16 +518,16 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <input type="text" class="form-control" id="pastor" name="pastor"
-                                        placeholder="Nombre completo">
+                                        placeholder="Nombre completo" required>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <input type="number" class="form-control" id="telefonopastor" name="telefonopastor"
-                                    placeholder="Celular">
+                                    placeholder="Celular" required>
                             </div>
                             <div class="col-md-3">
                                 <input type="email" class="form-control" id="correpastor" name="correpastor"
-                                    placeholder="Correo electrónico">
+                                    placeholder="Correo electrónico" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -537,7 +538,7 @@
                                         <em class="fa fa-user"></em>
                                     </div>
                                     <textarea class="form-control" id="testimonio" name="testimonio"
-                                        placeholder="Breve descripción" rows="1"></textarea>
+                                        placeholder="Breve descripción" rows="1" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -545,7 +546,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Año al que postula</label>
                             <div class="col-md-4">
-                                <select class="form-control" id="postulacion" name="postulacion">
+                                <select class="form-control" id="postulacion" name="postulacion" required>
                                     <option value="" selected>Seleccione un año</option>
                                     <option value="PRIMERO">Primer año</option>
                                     <option value="SEGUNDO">Segundo año</option>
@@ -575,7 +576,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Fotocopia certificado bachiller o libreta escolar</label>
+                            <label class="col-md-4 control-label">Fotocopia certificado bachiller o libreta
+                                escolar</label>
                             <div class="col-md-4">
                                 <input type="file" class="custom-file-input" id="certificadobachiller" lang="es">
                             </div>
@@ -588,8 +590,8 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-user"></em>
                                     </div>
-                                    <input class="form-control input-md" id="usuario" require="true" type="text"
-                                        placeholder="Nombre de usuario" name="usuario" />
+                                    <input class="form-control input-md" id="usuario" type="text"
+                                        placeholder="Nombre de usuario" name="usuario" required/>
                                 </div>
                             </div>
                         </div>
@@ -600,8 +602,8 @@
                                     <div class="input-group-addon">
                                         <em class="fa fa-lock"></em>
                                     </div>
-                                    <input class="form-control" type="password" id="contrasena" require="true"
-                                        placeholder="Contraseña" name="contrasena" minlength="8" />
+                                    <input class="form-control" type="password" id="contrasena" placeholder="Contraseña"
+                                        name="contrasena" minlength="8" required/>
                                 </div>
                             </div>
                         </div>
@@ -666,5 +668,58 @@ $(function() {
         }
         reader.readAsDataURL(file);
     }
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#basic-form").validate();
+});
+</script>
+
+<script type="text/javascript">
+// Wait for the DOM to be ready
+$(function() {
+    // Initialize form validation on the registration form.
+    // It has the name attribute "registration"
+    $("form[name='registration']").validate({
+        // Specify validation rules
+        rules: {
+            // The key name on the left side is the name attribute
+            // of an input field. Validation rules are defined
+            // on the right side
+            cedula: {
+                required: true,
+                minlength: 5
+            },
+            firstname: "required",
+            lastname: "required",
+            email: {
+                required: true,
+                // Specify that email should be validated
+                // by the built-in "email" rule
+                email: true
+            },
+            password: {
+                required: true,
+                minlength: 5
+            }
+        },
+        // Specify validation error messages
+        messages: {
+            firstname: "Please enter your firstname",
+            lastname: "Please enter your lastname",
+            password: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 5 characters long"
+            },
+            email: "Please enter a valid email address"
+        },
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
 });
 </script>
