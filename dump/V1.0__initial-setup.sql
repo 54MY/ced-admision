@@ -19,11 +19,11 @@ DEFAULT CHARSET=utf8;
 
 
 INSERT INTO cedadmision.Director (id, rol, user, password) VALUES
-(1, 'Direccion','direccion1', 'f45baf7ba713fc7a933be0a5bfc65a521d3e1304'),
-(2, 'Direccion','direccion2', 'f45baf7ba713fc7a933be0a5bfc65a521d3e1304'),
-(3, 'Vida','vida1', 'f45baf7ba713fc7a933be0a5bfc65a521d3e1304'),
-(4, 'Vida','vida2', 'f45baf7ba713fc7a933be0a5bfc65a521d3e1304'),
-(5, 'Vida','vida3', 'f45baf7ba713fc7a933be0a5bfc65a521d3e1304');
+(1, 'Direccion','jvanesa', '80d437c7bdc47e39fbba865d465ebedee588e4c5'),
+(2, 'Direccion','cnoelia', 'e444e3b2f02b29a26dd0c32fb3ea61d7a8665f1a'),
+(3, 'Vida','pwilson', '0e6cc3ab3eb3f4d5b0806fc74d003d4068ced3ce'),
+(4, 'Vida','alaura', '8e77bca84252d6c31bbf5d7b91914d518147820c'),
+(5, 'Vida','inestor', '5b876a7c812e28a14900c5c9b271da9d010897c9');
 
 /*Create Table Acampante*/
 CREATE TABLE cedadmision.Postulante (

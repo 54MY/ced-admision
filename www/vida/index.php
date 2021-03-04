@@ -136,7 +136,7 @@
                             <?php
                                 include("../config/db.php");
                                 include("../config/conexion.php");
-                                $query = "SELECT id, Nombres, Apellidos, Edad, Celular, Lugar_Nacimiento, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion FROM Postulante";
+                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Lugar_Nacimiento, Pais, Correo, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario FROM Postulante";
                                 $result = mysqli_query($con,$query); 
                                 echo '<table id="postulante-tabla" class="table table-striped">';
                                 echo '<thead>

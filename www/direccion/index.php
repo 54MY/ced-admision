@@ -51,30 +51,6 @@
         include("../config/db.php");
         include("../config/conexion.php");
         include("../config/alertas.php");
-        if(isset($_POST['cambiar'])){
-            $contrasena = addslashes ($_POST['userPassword']);
-            if (empty($contrasena)){
-                $mensaje='Campo contraseña requerido';
-                popUpWarning($mensaje);
-            }
-            $contrasena =  sha1($contrasena);
-            $id_user = addslashes ($_POST['id_user']);
-            if (empty($id_user)){
-                $mensaje='Usuario incorrecto';
-                popUpWarning($mensaje);
-            }
-            $sql = "UPDATE cedadmision.Postulante SET Contrasena='$contrasena' WHERE id=" .$id_user;
-            $retval = mysqli_query($con,$sql);
-            if($retval) {
-                $mensaje = 'Cambio de contraseña exitoso';
-                popUpSuccess('Contraseña actualizada', $mensaje);
-            } else if(! $retval ) {
-                $mensaje = 'Nose pudo registrar';
-                popUpWarning($mensaje);
-               die('Could not enter data: ' . mysqli_error());
-            }
-        }
-
         if(isset($_POST['aprobar'])){
             $id_user = addslashes ($_POST['id_user']);
             if (empty($id_user)){
@@ -130,11 +106,13 @@
                         </div>
                         </br>
                         </br>
+                        <input type="text" id="buscar" onkeyup="myFunction()" placeholder="Buscar por Nombres"
+                            title="Buscar por Nombres">
                         <div class="table-responsive">
                             <?php
                                 include("../config/db.php");
                                 include("../config/conexion.php");
-                                $query = "SELECT id, Nombres, Apellidos, Edad, Celular, Lugar_Nacimiento, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion FROM Postulante WHERE Estado_Vida='apto'";
+                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Lugar_Nacimiento, Pais, Correo, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario FROM Postulante WHERE Estado_Vida='apto'";
                                 $result = mysqli_query($con,$query); 
                                 echo '<table id="postulante-tabla" class="table table-striped">';
                                 echo '<thead>
@@ -145,7 +123,6 @@
                                             <th>Apellidos</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
-                                            <th>Contraseña</th>
                                             <th>Estado</th>
                                         </tr>
                                     </thead>';
@@ -162,7 +139,7 @@
                                                 data-edad="' . $row['Edad'] . '"
                                                 data-sexo="' . $row['Sexo'] . '"
                                                 data-celular="' . $row['Celular'] . '"
-                                                data-ciudad="' . $row['Ciudad'] . '"
+                                                data-ciudad="' . $row['Lugar_Nacimiento'] . '"
                                                 data-pais="' . $row['Pais'] . '"
                                                 data-usuario="' . $row['Usuario'] . '"
                                                 data-correo="' . $row['Correo'] . '"
@@ -172,7 +149,6 @@
                                         echo '<td>' . $row['Apellidos'] . '</td>';
                                         echo '<td>' . $row['Edad'] . '</td>';
                                         echo '<td>' . $row['Celular'] . '</td>';
-                                        echo '<td><button type="button" class="cambiar-contrasena btn btn-default btn-sm" data-id="' . $row['id'] . '" data-toggle="modal" data-target="#cambiarContrasena">Cambiar</button></td>';
                                         if ($row['Estado_Direccion']=='apto'){
                                             echo '<td><button type="button" class="autorizar-postulante btn btn-success btn-sm">Autorizado</button></td>';
                                         } else {
