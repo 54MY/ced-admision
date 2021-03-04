@@ -145,9 +145,6 @@
                                             <th>Apellidos</th>
                                             <th>Edad</th>
                                             <th>Telefono</th>
-                                            <th>Fotoc. Carnet</th>
-                                            <th>Cart. Regerencia</th>
-                                            <th>Cert. Bachiller</th>
                                             <th>Contraseña</th>
                                             <th>Estado</th>
                                         </tr>
@@ -175,9 +172,6 @@
                                         echo '<td>' . $row['Apellidos'] . '</td>';
                                         echo '<td>' . $row['Edad'] . '</td>';
                                         echo '<td>' . $row['Celular'] . '</td>';
-                                        echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Foto_Carnet']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_FOTOCOPIA_CARNET.pdf">Descargar</a></td>';
-                                        echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Carta_Referencia']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_CARTA_REFERENCIA.pdf">Descargar</a></td>';
-                                        echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Foto_Bachiler']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_CERTIFICADO_BACHILLER.pdf">Descargar</a></td>';
                                         echo '<td><button type="button" class="cambiar-contrasena btn btn-default btn-sm" data-id="' . $row['id'] . '" data-toggle="modal" data-target="#cambiarContrasena">Cambiar</button></td>';
                                         if ($row['Estado_Direccion']=='apto'){
                                             echo '<td><button type="button" class="autorizar-postulante btn btn-success btn-sm">Autorizado</button></td>';

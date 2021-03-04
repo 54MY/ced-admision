@@ -90,7 +90,7 @@
                             echo '</div>';
                         } else if (!empty($estadoVida) && empty($estadoDireccion)) {
                             echo '<div class="blink" style="color: orange;">';
-                            echo '<p>Ahora puede comunicarse y realizar los depositos</p>';
+                            echo '<p>Ahora puede ir al apartado de Información y realizar los depositos</p>';
                             echo '</div>';
                         } else if (!empty($estadoVida) && !empty($estadoDireccion)) {
                             echo '<div class="blink" style="color: green;">';
@@ -111,7 +111,7 @@
                         <li class="active">
                             <a href="#1" data-toggle="tab">Datos personales</a>
                         </li>
-                        <li><a href="#2" data-toggle="tab">Familiar</a>
+                        <li><a href="#2" data-toggle="tab">Información</a>
                         </li>
                         <li><a href="#3" data-toggle="tab">Cuenta</a>
                         </li>
@@ -169,38 +169,92 @@
                             </br>
                             </br>
                             <div class="form-group">
-                                <label class="col-md-2 control-label" for="Correo electronico">Datos Padre</label>
-                                <div class="col-md-5">
+                                <div class="col-md-12">
                                     <div class="input-group">
-                                        <a href="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>"
-                                            download="fotoCarnet.pdf">
-                                            <img src="data:image/pdf;charset=utf8;base64,<?php echo base64_encode($fotoCarnet); ?>"
-                                                alt="fotoCarnet">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="input-group">
-                                        <i>Apellidos</i>
-                                    </div>
-                                </div>
-                            </div>
-                            </br>
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="Correo electronico">Direccion</label>
-                                <div class="col-md-3">
-                                    <div class="input-group">
-                                        <i>Departamento</i>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <i>Direccion</i>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="input-group">
-                                        <i>Telefono</i>
+                                        <?php
+                                            if (empty($estadoVida) && empty($estadoDireccion)) {
+                                        ?>
+                                        <i><b>AGUARDE:</b>
+                                            el equipo de Vida se comunicará con su persona mediante los numeros
+                                            telefónicos proporcionados</i>
+                                        <?php
+                                            } else if (!empty($estadoVida) && empty($estadoDireccion)) {
+                                        ?>
+                                        <i><b>PAGO CED 2021:</b>
+                                            Una vez completado los requisitos y haber seguido todos los pasos de
+                                            Admisión, debes realizar el Pago Correspondiente a CED 2021.
+                                            Los Pasos a seguir, son los siguientes:</i>
+                                        </br>
+                                        </br>
+                                        <p class="mb-0">
+                                        <ul style="list-style : none;">
+                                            <li>
+                                                <ul>
+                                                    <li>
+                                                        Realizar el depósito de Bs.2700 (Este monto NO cubre
+                                                        el año entero, es
+                                                        sólo el pago de Matrícula + 2 cuotas) a la cuenta Bancaria:
+                                                        <ul>
+                                                            <li>
+                                                                BANCO FASSIL
+                                                            </li>
+                                                            <li>
+                                                                Nombre: Paola Vanessa
+                                                            </li>
+                                                            <li>
+                                                                Jiménez Vargas
+                                                            </li>
+                                                            <li>
+                                                                C.I.: 6362598 SC
+                                                            </li>
+                                                            <li>
+                                                                Número: 4396101
+                                                            </li>
+                                                            <li>
+                                                                Detalle: CUOTA CED 2021
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <ul>
+                                                    <li>
+                                                        Mandar una foto del comprobante de depósito que sea visible (es
+                                                        decir
+                                                        que la foto no esté borrosa) al WhatsApp: 71785498
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <ul>
+                                                    <li>
+                                                        Incluir en el mensaje con la foto del comprobante:
+                                                        <ul>
+                                                            <li>
+                                                                Nombre Completo del Esrudiante
+                                                            </li>
+                                                            <li>
+                                                                Ciudad
+                                                            </li>
+                                                            <li>
+                                                                Celular del Estudiante
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        </p>
+                                        </br>
+                                        <p><b>Bendiciones!!!</b></p>
+                                        <?php
+                                            } else if (!empty($estadoVida) && !empty($estadoDireccion)) {
+                                                echo '<div class="blink" style="color: green;">';
+                                                echo '<p>Felicidades!!! ya esres un alumno!!!</p>';
+                                                echo '</div>';
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
