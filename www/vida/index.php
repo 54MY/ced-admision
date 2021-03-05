@@ -136,7 +136,7 @@
                             <?php
                                 include("../config/db.php");
                                 include("../config/conexion.php");
-                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Lugar_Nacimiento, Pais, Correo, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario FROM Postulante";
+                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Direccion_Departamento, Direccion_Domicilio, Pais, Correo, Nombre_Pastor, Telefono_Pastor, Postulacion, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario FROM Postulante";
                                 $result = mysqli_query($con,$query); 
                                 echo '<table id="postulante-tabla" class="table table-striped">';
                                 echo '<thead>
@@ -169,10 +169,14 @@
                                                 data-edad="' . $row['Edad'] . '"
                                                 data-sexo="' . $row['Sexo'] . '"
                                                 data-celular="' . $row['Celular'] . '"
-                                                data-ciudad="' . $row['Ciudad'] . '"
+                                                data-ciudad="' . $row['Direccion_Departamento'] . '"
+                                                data-domicilio="' . $row['Direccion_Domicilio'] . '"
                                                 data-pais="' . $row['Pais'] . '"
                                                 data-usuario="' . $row['Usuario'] . '"
                                                 data-correo="' . $row['Correo'] . '"
+                                                data-pastornombre="' . $row['Nombre_Pastor'] . '"
+                                                data-pastortelefono="' . $row['Telefono_Pastor'] . '"
+                                                data-postulacion="' . $row['Postulacion'] . '"
                                                 data-toggle="modal" data-target="#detallesCuenta"></span></a></td>';
                                         echo '<td>' . $row['id'] . '</td>';
                                         echo '<td>' . $row['Nombres'] . '</td>';
@@ -282,6 +286,15 @@
                         </div>
                         </br>
                         <div class="form-group">
+                            <label class="col-md-2 control-label">Postula</label>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <i><span name="postulacion" id="postulacion"></span></i>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="form-group">
                             <label class="col-md-2 control-label">Nombres</label>
                             <div class="col-md-10">
                                 <div class="input-group">
@@ -345,6 +358,33 @@
                         </div>
                         </br>
                         <div class="form-group">
+                            <label class="col-md-2 control-label">Domicilio</label>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <i><span name="domicilio" id="domicilio"></span></i>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Pastor</label>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <i><span name="pastornombre" id="pastornombre"></span></i>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Telefono</label>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <i><span name="pastortelefono" id="pastortelefono"></span></i>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="form-group">
                             <label class="col-md-2 control-label">Usuario</label>
                             <div class="col-md-10">
                                 <div class="input-group">
@@ -400,10 +440,18 @@
         $(".modal-body #pais").text(pais);
         var ciudad = $(this).data('ciudad');
         $(".modal-body #ciudad").text(ciudad);
+        var domicilio = $(this).data('domicilio');
+        $(".modal-body #domicilio").text(domicilio);
         var usuario = $(this).data('usuario');
         $(".modal-body #usuario").text(usuario);
         var correo = $(this).data('correo');
         $(".modal-body #correo").text(correo);
+        var pastornombre = $(this).data('pastornombre');
+        $(".modal-body #pastornombre").text(pastornombre);
+        var pastortelefono = $(this).data('pastortelefono');
+        $(".modal-body #pastortelefono").text(pastortelefono);
+        var postulacion = $(this).data('postulacion');
+        $(".modal-body #postulacion").text(postulacion);
     });
     </script>
 
