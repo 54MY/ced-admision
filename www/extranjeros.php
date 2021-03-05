@@ -753,17 +753,51 @@ $(document).ready(function() {
             cedula: {
                 minlength: 5
             },
+            expedido: {
+                maxlength: 30
+            },
             nombres: {
                 minlength: 3
             },
             apellidos: {
                 minlength: 3
-            }
+            },
+            lugarnacimiento: {
+                maxlength: 30
+            },
+            hijos: {
+                maxlength: 100
+            },
+            direcciondep: {
+                maxlength: 30
+            },
+            domicilio: {
+                maxlength: 100
+            },
+            ocupacion: {
+                maxlength: 100
+            },
+            nombreiglesia: {
+                maxlength: 300
+            },
+            direccioniglesia: {
+                maxlength: 30
+            },
+            domicilioiglesia: {
+                maxlength: 200
+            },
+            testimonio: {
+                maxlength: 500
+            },
         },
         messages: {
             cedula: {
-                required: "Ingrese una numero valido",
+                required: "Ingrese un numero de C.I. valido",
                 minlength: "EL numero ingresado no es valido"
+            },
+            expedido: {
+                required: "Ingrese donde fue expedido su carnet de identidad",
+                maxlength: "Ponga una descripcion mas corta"
             },
             nombres: {
                 minlength: "Escriba un nombre correcto"
@@ -772,8 +806,33 @@ $(document).ready(function() {
                 minlength: "Escriba un apellido correcto"
             },
             lugarnacimiento: {
-                required: "Seleccione lugar de nacimiento"
-            }
+                required: "Ingrese su lugar de nacimiento",
+                maxlength: "Lugar de nacimiento demasiado largo"
+            },
+            hijos: {
+                maxlength: "Datos de los hijos demasiado largo"
+            },
+            direcciondep: {
+                maxlength: "Direccion actual demasiado largo"
+            },
+            domicilio: {
+                maxlength: "Datos del domicilio demasiado largo"
+            },
+            ocupacion: {
+                maxlength: "Ponga una descripcion mas corta"
+            },
+            nombreiglesia: {
+                maxlength: "Nombre de la iglesia demasiado larga"
+            },
+            direccioniglesia: {
+                maxlength: "Ciudad de la iglesia demasiado larga"
+            },
+            domicilioiglesia: {
+                maxlength: "Domicilio de la iglesia demasiado larga"
+            },
+            testimonio: {
+                maxlength: "Testimonio demasiado largo"
+            },
         }
     });
 });

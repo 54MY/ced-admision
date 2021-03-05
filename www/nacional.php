@@ -769,17 +769,41 @@ $(document).ready(function() {
             cedula: {
                 minlength: 5
             },
+            expedido: {
+                maxlength: 30
+            },
             nombres: {
                 minlength: 3
             },
             apellidos: {
                 minlength: 3
-            }
+            },
+            hijos: {
+                maxlength: 100
+            },
+            domicilio: {
+                maxlength: 100
+            },
+            ocupacion: {
+                maxlength: 100
+            },
+            nombreiglesia: {
+                maxlength: 300
+            },
+            domicilioiglesia: {
+                maxlength: 200
+            },
+            testimonio: {
+                maxlength: 500
+            },
         },
         messages: {
             cedula: {
-                required: "Ingrese una numero valido",
+                required: "Ingrese una numero de C.I. valido",
                 minlength: "EL numero ingresado no es valido"
+            },
+            expedido: {
+                maxlength: "Ponga una descripcion mas corta"
             },
             nombres: {
                 minlength: "Escriba un nombre correcto"
@@ -789,7 +813,25 @@ $(document).ready(function() {
             },
             lugarnacimiento: {
                 required: "Seleccione lugar de nacimiento"
-            }
+            },
+            hijos: {
+                maxlength: "Datos de los hijos demasiado largo"
+            },
+            domicilio: {
+                maxlength: "Datos del domicilio demasiado largo"
+            },
+            ocupacion: {
+                maxlength: "Ponga una descripcion mas corta"
+            },
+            nombreiglesia: {
+                maxlength: "Nombre de la iglesia demasiado larga"
+            },
+            domicilioiglesia: {
+                maxlength: "Domicilio de la iglesia demasiado larga"
+            },
+            testimonio: {
+                maxlength: "Testimonio demasiado largo"
+            },
         }
     });
 });
