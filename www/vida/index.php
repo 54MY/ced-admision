@@ -164,6 +164,7 @@
                                     }
                                         echo '<td><a><span class="detalles-cuenta fa fa-search" 
                                                 data-foto-perfil="' . base64_encode($row['Foto_Perfil']) . '"
+                                                data-id="' . $row['id'] . '"
                                                 data-nombre="' . $row['Nombres'] . '"
                                                 data-apellido="' . $row['Apellidos'] . '"
                                                 data-edad="' . $row['Edad'] . '"
@@ -282,7 +283,18 @@
                         <div class="form-group">
                             <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($fotoPerfil); ?>"
                                 id="foto-perfil" alt="" class="img-thumbnail mx-auto d-block"
-                                style="display: block;margin-left: auto;margin-right: auto;" width="150" height="150">
+                                style="display: block;margin-left: auto;margin-right: auto;" width="150" height="150" />
+                            </br>
+                            <div class="wrapper">
+                                <span class="group-btn">
+                                    <form method="post" action="../controler/exportpdf.php" target="_blank">
+                                        <input style="display:none" name="id" id="id"
+                                            class="form-control input-sm chat-input" type="text" />
+                                        <button class="btn btn-primary btn-sm" type="submit" name="hojadevida">Imprimir
+                                            hoja de vida (Aún en desarrollo)</button>
+                                    </form>
+                                </span>
+                            </div>
                         </div>
                         </br>
                         <div class="form-group">
@@ -426,6 +438,8 @@
     $(document).on("click", ".detalles-cuenta", function() {
         var foto_perfil = $(this).data('foto-perfil');
         $(".modal-body #foto-perfil").attr('src', 'data:image/png;charset=utf8;base64,' + foto_perfil);
+        var id = $(this).data('id');
+        $(".modal-body #id").attr('value', id);;
         var nombre = $(this).data('nombre');
         $(".modal-body #nombre").text(nombre);
         var apellido = $(this).data('apellido');
