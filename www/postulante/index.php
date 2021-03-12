@@ -253,6 +253,7 @@
                                                 echo '<div class="blink" style="color: green;">';
                                                 echo '<p>Felicidades!!! ya esres un alumno!!!</p>';
                                                 echo '</div>';
+                                                echo '<a href="../vendor/declaracion.pdf" download="DECLARACIÓN DE CONSENTIMEINTO">Descargar archivo de consentimiento</a>';
                                             }
                                         ?>
                                     </div>
