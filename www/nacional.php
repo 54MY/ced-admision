@@ -205,11 +205,17 @@
 
                 $fileName = basename($_FILES['fotografia']['name']);
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+                $fileSize = $_FILES['fotografia']['size'];
 
                 $allowTypes = array('jpg','png','jpeg');
                 if(in_array($fileType, $allowTypes)){
-                    $fotografia = $_FILES['fotografia']['tmp_name'];
-                    $fotoPerfil = addslashes(file_get_contents($fotografia));
+                    if($fileSize < 2097152) {
+                        $fotografia = $_FILES['fotografia']['tmp_name'];
+                        $fotoPerfil = addslashes(file_get_contents($fotografia));
+                    }else{
+                        $mensaje = 'El tamaño de la fotografia debe ser inferior a 2 MB.';
+                        popUpWarning($mensaje);
+                    }
                 }else{
                     $mensaje = 'Lo siento, solo se admiten los formatos JPG, JPEG y PNG para poder subir.';
                     popUpWarning($mensaje);
@@ -223,11 +229,17 @@
 
                 $fileName = basename($_FILES['fotocopiacarnet']['name']);
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+                $fileSize = $_FILES['fotocopiacarnet']['size'];
 
                 $allowTypes = array('pdf');
                 if(in_array($fileType, $allowTypes)){
-                    $fotocopiacarnet = $_FILES['fotocopiacarnet']['tmp_name'];
-                    $fotoCarnet = addslashes(file_get_contents($fotocopiacarnet));
+                    if($fileSize < 2097152) {
+                        $fotocopiacarnet = $_FILES['fotocopiacarnet']['tmp_name'];
+                        $fotoCarnet = addslashes(file_get_contents($fotocopiacarnet));
+                    }else{
+                        $mensaje = 'El tamaño de la fotocopia de carnet debe ser inferior a 2 MB.';
+                        popUpWarning($mensaje);
+                    }
                 }else{
                     $mensaje = 'Lo siento, el formato para fotocopia carnet debe ser PDF para poder subir.';
                     popUpWarning($mensaje);
@@ -241,11 +253,17 @@
 
                 $fileName = basename($_FILES['cartareferencia']['name']);
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+                $fileSize = $_FILES['cartareferencia']['size'];
 
                 $allowTypes = array('pdf');
                 if(in_array($fileType, $allowTypes)){
-                    $cartareferencia = $_FILES['cartareferencia']['tmp_name'];
-                    $fotoReferencia = addslashes(file_get_contents($cartareferencia));
+                    if($fileSize < 2097152) {
+                        $cartareferencia = $_FILES['cartareferencia']['tmp_name'];
+                        $fotoReferencia = addslashes(file_get_contents($cartareferencia));
+                    }else{
+                        $mensaje = 'El tamaño de la carta de referencia debe ser inferior a 2 MB.';
+                        popUpWarning($mensaje);
+                    }
                 }else{
                     $mensaje = 'Lo siento, el formatos para la carte de referencia debe ser PDF para poder subir.';
                     popUpWarning($mensaje);
@@ -259,11 +277,17 @@
 
                 $fileName = basename($_FILES['certificadobachiller']['name']);
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+                $fileSize = $_FILES['certificadobachiller']['size'];
 
                 $allowTypes = array('pdf');
                 if(in_array($fileType, $allowTypes)){
-                    $certificadobachiller = $_FILES['certificadobachiller']['tmp_name'];
-                    $fotoCertificado = addslashes(file_get_contents($certificadobachiller));
+                    if($fileSize < 2097152) {
+                        $certificadobachiller = $_FILES['certificadobachiller']['tmp_name'];
+                        $fotoCertificado = addslashes(file_get_contents($certificadobachiller));
+                    }else{
+                        $mensaje = 'El tamaño del certificado de bachiller debe ser inferior a 2 MB.';
+                        popUpWarning($mensaje);
+                    }
                 }else{
                     $mensaje = 'Lo siento, el formatos para el certificado de bachiller o libreta escolar debe ser PDF para poder subir.';
                     popUpWarning($mensaje);
@@ -763,6 +787,11 @@ $(function() {
 </script>
 
 <script type="text/javascript">
+
+$.validator.addMethod('filesize', function (value, element, param) {
+    return this.optional(element) || (element.files[0].size <= param * 1000000)
+}, 'El tamaño del archivo debe ser inferior a {0} MB');
+
 $(document).ready(function() {
     $("#nacional-form").validate({
         rules: {
@@ -796,6 +825,18 @@ $(document).ready(function() {
             testimonio: {
                 maxlength: 500
             },
+            fotografia: {
+                filesize: 2
+            },
+            fotocopiacarnet: {
+                filesize: 2
+            },
+            cartareferencia: {
+                filesize: 2
+            },
+            certificadobachiller: {
+                filesize: 2
+            }
         },
         messages: {
             cedula: {
@@ -832,6 +873,18 @@ $(document).ready(function() {
             testimonio: {
                 maxlength: "Testimonio demasiado largo"
             },
+            fotografia: {
+                required: "La fotografia es obligatoria"
+            },
+            fotocopiacarnet: {
+                required: "La fotocopia de carnet es obligatoria"
+            },
+            cartareferencia: {
+                required: "La carta de referencia es obligatoria"
+            },
+            certificadobachiller: {
+                required: "El certificado de bachiller es obligatoria"
+            }
         }
     });
 });
