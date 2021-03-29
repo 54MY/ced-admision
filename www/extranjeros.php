@@ -655,7 +655,7 @@
                                     accept="image/png, .jpeg, .jpg" lang="es" required />
                             </div>
                             <div class="col-md-3">
-                                <img id="imgSalida" width="50%" height="50%" src="" alt="" />
+                                <img id="imgSalida" width="50%" height="50%" src="images/profile.png" alt="" />
                             </div>
                         </div>
                         <div class="form-group">
