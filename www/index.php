@@ -128,10 +128,10 @@
                         en el área
                         de Evangelismo y Discipulado, inculcando Valores y Principios Bíblicos para su Vida Cristiana
                     </p>
-                    <!--div class="intro-button mx-auto">
+                    <!-- <div class="intro-button mx-auto">
                         <a class="btn btn-primary btn-xl" data-toggle="modal"
                             data-target="#exampleModalCenter">Postulate ya!</a>
-                    </div-->
+                    </div> -->
                 </div>
             </div>
         </div>

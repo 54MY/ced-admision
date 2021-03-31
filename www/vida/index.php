@@ -124,9 +124,19 @@
                 <div class="tab-content ">
                     <div class="tab-pane active" id="1">
                         </br>
-                        <div class="col-md-4 col-md-offset-10">
-                            <a href="../controler/export.php" class="btn btn-info btn-sm" role="button"
-                                aria-pressed="true">Imprimir excel</a>
+                        <div>
+                            <div class="col-md-2">
+                                <a href="extranjeros.php" class="btn btn-info btn-sm" role="button"
+                                    aria-pressed="true">Registrar extranjero</a>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="nacional.php" class="btn btn-info btn-sm" role="button"
+                                    aria-pressed="true">Registrar nacional</a>
+                            </div>
+                            <div class="col-md-offset-10">
+                                <a href="../controler/export.php" class="btn btn-info btn-sm" role="button"
+                                    aria-pressed="true">Imprimir excel</a>
+                            </div>
                         </div>
                         </br>
                         </br>

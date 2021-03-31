@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['admin'])) {
+    if (!isset($_SESSION['vida'])) {
         header("location: ../index.php"); 
     }
     include("../config/db.php");
@@ -10,7 +10,7 @@
         $str = preg_replace("/\r?\n/", "\\n", $str);
         if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
     }
-    $fileName = "acampantes-" . date('Ymd') . ".xlsx";
+    $fileName = "postulantes-" . date('Ymd') . ".xlsx";
     $fields = array('Fecha', 'Nombre de usuario', 'Contraseña', 'Nombres', 'Apellidos', 'Edad', 'Sexo', 'Pais', 'Ciudad', 
                     'Celular', 'Taller', 'Iglesia', 'Color', 'Numero de cuarto');
     $excelData = implode("\t", array_values($fields)) . "\n";
