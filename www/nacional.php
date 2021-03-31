@@ -60,12 +60,12 @@
 
 <body>
     <?php
-        include("config/db.php");
-        include("config/conexion.php");
+        //include("config/db.php");
+        //include("config/conexion.php");
         include("config/alertas.php");
 
         if(isset($_POST['registrar'])){
-            $cedula = addslashes($_POST['cedula']);
+            /*$cedula = addslashes($_POST['cedula']);
             if (empty($cedula)) {
                 $mensaje = 'Numero de cedula requerido';
                 popUpWarning($mensaje);
@@ -319,9 +319,9 @@
                 $mensaje = 'Nose pudo registrar, contacte al administrador';
                 popUpEnd('Error en Servidor',$mensaje);
                 die('Could not enter data: ' . mysqli_error());
-            }
+            }*/
 
-            //popUpEnd('Inscripciones cerradas','El proceso de inscripcion a terminado');
+            popUpEnd('Inscripciones cerradas','El proceso de inscripcion a terminado');
         }
     ?>
 
