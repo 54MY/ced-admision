@@ -3,32 +3,269 @@
     if (!isset($_SESSION['vida'])) {
         header("location: ../index.php"); 
     }
-    include("../config/db.php");
-    include("../config/conexion.php");
-    function filterData(&$str){
-        $str = preg_replace("/\t/", "\\t", $str);
-        $str = preg_replace("/\r?\n/", "\\n", $str);
-        if(strstr($str, '"')) $str = '"' . str_replace('"', '""', $str) . '"';
+    require_once("../config/db.php");
+    require_once("../config/conexion.php");
+    require_once("../Classes/PHPExcel.php");
+    require_once("../Classes/PHPExcel/IOFactory.php");
+    $varones = mysqli_query($con,"SELECT * FROM cedadmision.Postulante WHERE Sexo = 'MASCULINO' AND Estado_Vida = 'apto' AND Estado_Direccion = 'apto'");
+    $mujeres = mysqli_query($con,"SELECT * FROM cedadmision.Postulante WHERE Sexo = 'FEMENINO' AND Estado_Vida = 'apto' AND Estado_Direccion = 'apto'");
+    $primero = mysqli_query($con,"SELECT * FROM cedadmision.Postulante WHERE Postulacion = 'PRIMERO' AND Estado_Vida = 'apto' AND Estado_Direccion = 'apto'");
+    $segundo = mysqli_query($con,"SELECT * FROM cedadmision.Postulante WHERE Postulacion = 'SEGUNDO' AND Estado_Vida = 'apto' AND Estado_Direccion = 'apto'");
+
+    $objPHPExcel = new PHPExcel();
+    $from = "A1";
+    $to = "P1";
+    $objPHPExcel->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold( true );
+    $objPHPExcel->setActiveSheetIndex(0);
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Fecha de Registro');
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Nombres');
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Apellidos');
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', 'Edad');
+    $objPHPExcel->getActiveSheet()->setCellValue('E1', 'Pais');
+    $objPHPExcel->getActiveSheet()->setCellValue('F1', 'Lugar Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', 'Direccion Departamento');
+    $objPHPExcel->getActiveSheet()->setCellValue('H1', 'Celular');
+    $objPHPExcel->getActiveSheet()->setCellValue('I1', 'Iglesia');
+    $objPHPExcel->getActiveSheet()->setCellValue('J1', 'Cedula');
+    $objPHPExcel->getActiveSheet()->setCellValue('K1', 'Fecha de Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('L1', 'Estado Civil');
+    $objPHPExcel->getActiveSheet()->setCellValue('M1', 'Correo');
+    $objPHPExcel->getActiveSheet()->setCellValue('N1', 'Ocupacion');
+    $objPHPExcel->getActiveSheet()->setCellValue('O1', 'Pastor');
+    $objPHPExcel->getActiveSheet()->setCellValue('P1', 'Telefono Pastor');
+    $i=2;
+    while($row = mysqli_fetch_array($varones)) {
+        $fecha=$row['Fecha_Registro'];
+        $name=$row['Nombres'];
+        $email=$row['Apellidos'];
+        $edad=$row['Edad'];
+        $pais=$row['Pais'];
+        $lugarNacimiento=$row['Lugar_Nacimiento'];
+        $direccionDepartamento=$row['Direccion_Departamento'];
+        $celular=$row['Celular'];
+        $iglesia=$row['Nombre_Iglesia'];
+        $cedula=$row['Cedula'];
+        $fechaNacimiento=$row['Fecha_Nacimiento'];
+        $estadoCivil=$row['Estado_Civil'];
+        $correo=$row['Correo'];
+        $ocupacion=$row['Ocupacion'];
+        $nombrePastor=$row['Nombre_Pastor'];
+        $telefonoPastor=$row['Telefono_Pastor'];
+
+        $objPHPExcel->getActiveSheet()->setCellValue("A$i",$fecha);
+        $objPHPExcel->getActiveSheet()->setCellValue("B$i",$name);
+        $objPHPExcel->getActiveSheet()->setCellValue("C$i",$email);
+        $objPHPExcel->getActiveSheet()->setCellValue("D$i",$edad);
+        $objPHPExcel->getActiveSheet()->setCellValue("E$i",$pais);
+        $objPHPExcel->getActiveSheet()->setCellValue("F$i",$lugarNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("G$i",$direccionDepartamento);
+        $objPHPExcel->getActiveSheet()->setCellValue("H$i",$celular);
+        $objPHPExcel->getActiveSheet()->setCellValue("I$i",$iglesia);
+        $objPHPExcel->getActiveSheet()->setCellValue("J$i",$cedula);
+        $objPHPExcel->getActiveSheet()->setCellValue("K$i",$fechaNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("L$i",$estadoCivil);
+        $objPHPExcel->getActiveSheet()->setCellValue("M$i",$correo);
+        $objPHPExcel->getActiveSheet()->setCellValue("N$i",$ocupacion);
+        $objPHPExcel->getActiveSheet()->setCellValue("O$i",$nombrePastor);
+        $objPHPExcel->getActiveSheet()->setCellValue("P$i",$telefonoPastor);
+        $i++;
     }
-    $fileName = "postulantes-" . date('Ymd') . ".xlsx";
-    $fields = array('Fecha', 'Nombre de usuario', 'Contraseña', 'Nombres', 'Apellidos', 'Edad', 'Sexo', 'Pais', 'Ciudad', 
-                    'Celular', 'Taller', 'Iglesia', 'Color', 'Numero de cuarto');
-    $excelData = implode("\t", array_values($fields)) . "\n";
-    $result = mysqli_query($con,"SELECT a.Fecha_Registro, a.Usuario, a.Contrasena, a.Nombres, a.Apellidos, a.Edad, a.Sexo, 
-                    a.Pais, a.Ciudad, a.Codigo_Pais, a.Celular, t.Taller, a.Nombre_Iglesia FROM pdvb.Acampante a INNER JOIN pdvb.Talleres t ON Id_Taller = t.id");
-    if($result->num_rows > 0){
-        $i=0;
-        while($row = $result->fetch_assoc()){ $i++;
-            $rowData = array($row['Fecha_Registro'], $row['Usuario'], $row['Contrasena'], $row['Nombres'], $row['Apellidos'], $row['Edad'], 
-                        $row['Sexo'], $row['Pais'], $row['Ciudad'], $row['Codigo_Pais'] . $row['Celular'], $row['Taller'], $row['Nombre_Iglesia'], '', '');
-            array_walk($rowData, 'filterData');
-            $excelData .= implode("\t", array_values($rowData)) . "\n";
-        }
-    }else{
-        $excelData .= 'No hay datos...'. "\n";
+    $objPHPExcel->getActiveSheet()->setTitle('Varones');
+
+
+    $objPHPExcel->createSheet();
+    $objPHPExcel->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold( true );
+    $objPHPExcel->setActiveSheetIndex(1);
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Fecha de registro');
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Nombres');
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Apellidos');
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', 'Edad');
+    $objPHPExcel->getActiveSheet()->setCellValue('E1', 'Pais');
+    $objPHPExcel->getActiveSheet()->setCellValue('F1', 'Lugar Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', 'Direccion Departamento');
+    $objPHPExcel->getActiveSheet()->setCellValue('H1', 'Celular');
+    $objPHPExcel->getActiveSheet()->setCellValue('I1', 'Iglesia');
+    $objPHPExcel->getActiveSheet()->setCellValue('J1', 'Cedula');
+    $objPHPExcel->getActiveSheet()->setCellValue('K1', 'Fecha de Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('L1', 'Estado Civil');
+    $objPHPExcel->getActiveSheet()->setCellValue('M1', 'Correo');
+    $objPHPExcel->getActiveSheet()->setCellValue('N1', 'Ocupacion');
+    $objPHPExcel->getActiveSheet()->setCellValue('O1', 'Pastor');
+    $objPHPExcel->getActiveSheet()->setCellValue('P1', 'Telefono Pastor');
+    $i=2;
+    while($row1= mysqli_fetch_array($mujeres)) {
+        $fecha=$row1['Fecha_Registro'];
+        $name=$row1['Nombres'];
+        $email=$row1['Apellidos'];
+        $edad=$row1['Edad'];
+        $pais=$row1['Pais'];
+        $lugarNacimiento=$row1['Lugar_Nacimiento'];
+        $direccionDepartamento=$row1['Direccion_Departamento'];
+        $celular=$row1['Celular'];
+        $iglesia=$row1['Nombre_Iglesia'];
+        $cedula=$row1['Cedula'];
+        $fechaNacimiento=$row1['Fecha_Nacimiento'];
+        $estadoCivil=$row1['Estado_Civil'];
+        $correo=$row1['Correo'];
+        $ocupacion=$row1['Ocupacion'];
+        $nombrePastor=$row1['Nombre_Pastor'];
+        $telefonoPastor=$row1['Telefono_Pastor'];
+
+        $objPHPExcel->getActiveSheet()->setCellValue("A$i",$fecha);
+        $objPHPExcel->getActiveSheet()->setCellValue("B$i",$name);
+        $objPHPExcel->getActiveSheet()->setCellValue("C$i",$email);
+        $objPHPExcel->getActiveSheet()->setCellValue("D$i",$edad);
+        $objPHPExcel->getActiveSheet()->setCellValue("E$i",$pais);
+        $objPHPExcel->getActiveSheet()->setCellValue("F$i",$lugarNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("G$i",$direccionDepartamento);
+        $objPHPExcel->getActiveSheet()->setCellValue("H$i",$celular);
+        $objPHPExcel->getActiveSheet()->setCellValue("I$i",$iglesia);
+        $objPHPExcel->getActiveSheet()->setCellValue("J$i",$cedula);
+        $objPHPExcel->getActiveSheet()->setCellValue("K$i",$fechaNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("L$i",$estadoCivil);
+        $objPHPExcel->getActiveSheet()->setCellValue("M$i",$correo);
+        $objPHPExcel->getActiveSheet()->setCellValue("N$i",$ocupacion);
+        $objPHPExcel->getActiveSheet()->setCellValue("O$i",$nombrePastor);
+        $objPHPExcel->getActiveSheet()->setCellValue("P$i",$telefonoPastor);
+        $i++;
     }
+    $objPHPExcel->getActiveSheet()->setTitle('Mujeres');
+
+
+    $objPHPExcel->createSheet();
+    $objPHPExcel->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold( true );
+    $objPHPExcel->setActiveSheetIndex(2);
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Fecha de registro');
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Nombres');
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Apellidos');
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', 'Edad');
+    $objPHPExcel->getActiveSheet()->setCellValue('E1', 'Sexo');
+    $objPHPExcel->getActiveSheet()->setCellValue('F1', 'Pais');
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', 'Lugar Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('H1', 'Direccion Departamento');
+    $objPHPExcel->getActiveSheet()->setCellValue('I1', 'Celular');
+    $objPHPExcel->getActiveSheet()->setCellValue('J1', 'Iglesia');
+    $objPHPExcel->getActiveSheet()->setCellValue('K1', 'Cedula');
+    $objPHPExcel->getActiveSheet()->setCellValue('L1', 'Fecha de Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('M1', 'Estado Civil');
+    $objPHPExcel->getActiveSheet()->setCellValue('N1', 'Correo');
+    $objPHPExcel->getActiveSheet()->setCellValue('O1', 'Ocupacion');
+    $objPHPExcel->getActiveSheet()->setCellValue('P1', 'Pastor');
+    $objPHPExcel->getActiveSheet()->setCellValue('Q1', 'Telefono Pastor');
+    $i=2;
+    while($row2= mysqli_fetch_array($primero)) {
+        $fecha=$row2['Fecha_Registro'];
+        $name=$row2['Nombres'];
+        $email=$row2['Apellidos'];
+        $edad=$row2['Edad'];
+        $sexo=$row2['Sexo'];
+        $pais=$row2['Pais'];
+        $lugarNacimiento=$row2['Lugar_Nacimiento'];
+        $direccionDepartamento=$row2['Direccion_Departamento'];
+        $celular=$row2['Celular'];
+        $iglesia=$row2['Nombre_Iglesia'];
+        $cedula=$row2['Cedula'];
+        $fechaNacimiento=$row2['Fecha_Nacimiento'];
+        $estadoCivil=$row2['Estado_Civil'];
+        $correo=$row2['Correo'];
+        $ocupacion=$row2['Ocupacion'];
+        $nombrePastor=$row2['Nombre_Pastor'];
+        $telefonoPastor=$row2['Telefono_Pastor'];
+
+        $objPHPExcel->getActiveSheet()->setCellValue("A$i",$fecha);
+        $objPHPExcel->getActiveSheet()->setCellValue("B$i",$name);
+        $objPHPExcel->getActiveSheet()->setCellValue("C$i",$email);
+        $objPHPExcel->getActiveSheet()->setCellValue("D$i",$edad);
+        $objPHPExcel->getActiveSheet()->setCellValue("E$i",$sexo);
+        $objPHPExcel->getActiveSheet()->setCellValue("F$i",$pais);
+        $objPHPExcel->getActiveSheet()->setCellValue("G$i",$lugarNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("H$i",$direccionDepartamento);
+        $objPHPExcel->getActiveSheet()->setCellValue("I$i",$celular);
+        $objPHPExcel->getActiveSheet()->setCellValue("J$i",$iglesia);
+        $objPHPExcel->getActiveSheet()->setCellValue("K$i",$cedula);
+        $objPHPExcel->getActiveSheet()->setCellValue("L$i",$fechaNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("M$i",$estadoCivil);
+        $objPHPExcel->getActiveSheet()->setCellValue("N$i",$correo);
+        $objPHPExcel->getActiveSheet()->setCellValue("O$i",$ocupacion);
+        $objPHPExcel->getActiveSheet()->setCellValue("P$i",$nombrePastor);
+        $objPHPExcel->getActiveSheet()->setCellValue("Q$i",$telefonoPastor);
+        $i++;
+    }
+    $objPHPExcel->getActiveSheet()->setTitle('Primero');
+
+
+    $objPHPExcel->createSheet();
+    $objPHPExcel->getActiveSheet()->getStyle("$from:$to")->getFont()->setBold( true );
+    $objPHPExcel->setActiveSheetIndex(3);
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Fecha de registro');
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Nombres');
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Apellidos');
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', 'Edad');
+    $objPHPExcel->getActiveSheet()->setCellValue('E1', 'Sexo');
+    $objPHPExcel->getActiveSheet()->setCellValue('F1', 'Pais');
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', 'Lugar Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('H1', 'Direccion Departamento');
+    $objPHPExcel->getActiveSheet()->setCellValue('I1', 'Celular');
+    $objPHPExcel->getActiveSheet()->setCellValue('J1', 'Iglesia');
+    $objPHPExcel->getActiveSheet()->setCellValue('K1', 'Cedula');
+    $objPHPExcel->getActiveSheet()->setCellValue('L1', 'Fecha de Nacimiento');
+    $objPHPExcel->getActiveSheet()->setCellValue('M1', 'Estado Civil');
+    $objPHPExcel->getActiveSheet()->setCellValue('N1', 'Correo');
+    $objPHPExcel->getActiveSheet()->setCellValue('O1', 'Ocupacion');
+    $objPHPExcel->getActiveSheet()->setCellValue('P1', 'Pastor');
+    $objPHPExcel->getActiveSheet()->setCellValue('Q1', 'Telefono Pastor');
+    $i=2;
+    while($row3= mysqli_fetch_array($segundo)) {
+        $fecha=$row3['Fecha_Registro'];
+        $name=$row3['Nombres'];
+        $email=$row3['Apellidos'];
+        $edad=$row3['Edad'];
+        $sexo=$row3['Sexo'];
+        $pais=$row3['Pais'];
+        $lugarNacimiento=$row3['Lugar_Nacimiento'];
+        $direccionDepartamento=$row3['Direccion_Departamento'];
+        $celular=$row3['Celular'];
+        $iglesia=$row3['Nombre_Iglesia'];
+        $cedula=$row3['Cedula'];
+        $fechaNacimiento=$row3['Fecha_Nacimiento'];
+        $estadoCivil=$row3['Estado_Civil'];
+        $correo=$row3['Correo'];
+        $ocupacion=$row3['Ocupacion'];
+        $nombrePastor=$row3['Nombre_Pastor'];
+        $telefonoPastor=$row3['Telefono_Pastor'];
+
+        $objPHPExcel->getActiveSheet()->setCellValue("A$i",$fecha);
+        $objPHPExcel->getActiveSheet()->setCellValue("B$i",$name);
+        $objPHPExcel->getActiveSheet()->setCellValue("C$i",$email);
+        $objPHPExcel->getActiveSheet()->setCellValue("D$i",$edad);
+        $objPHPExcel->getActiveSheet()->setCellValue("E$i",$sexo);
+        $objPHPExcel->getActiveSheet()->setCellValue("F$i",$pais);
+        $objPHPExcel->getActiveSheet()->setCellValue("G$i",$lugarNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("H$i",$direccionDepartamento);
+        $objPHPExcel->getActiveSheet()->setCellValue("I$i",$celular);
+        $objPHPExcel->getActiveSheet()->setCellValue("J$i",$iglesia);
+        $objPHPExcel->getActiveSheet()->setCellValue("K$i",$cedula);
+        $objPHPExcel->getActiveSheet()->setCellValue("L$i",$fechaNacimiento);
+        $objPHPExcel->getActiveSheet()->setCellValue("M$i",$estadoCivil);
+        $objPHPExcel->getActiveSheet()->setCellValue("N$i",$correo);
+        $objPHPExcel->getActiveSheet()->setCellValue("O$i",$ocupacion);
+        $objPHPExcel->getActiveSheet()->setCellValue("P$i",$nombrePastor);
+        $objPHPExcel->getActiveSheet()->setCellValue("Q$i",$telefonoPastor);
+        $i++;
+    }
+    $objPHPExcel->getActiveSheet()->setTitle('Segundo');
+
+
+    $fileName = "alumnos-" . date('Ymd') . ".xls";
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+    ob_end_clean();
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header("Content-Disposition: attachment; filename=\"$fileName\""); 
-    header("Content-Type: application/vnd.ms-excel"); 
-    echo $excelData; 
-    exit;
+    header('Cache-Control: max-age=0');
+    header('Cache-Control: max-age=1');
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+    header('Cache-Control: cache, must-revalidate');
+    header('Pragma: public');
+    $objWriter->save('php://output');
 ?>
