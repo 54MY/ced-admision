@@ -3,6 +3,7 @@
     if (!isset($_SESSION['vida'])) {
         header("location: ../index.php"); 
     }
+    ini_set('memory_limit', '512M');
     require_once("../config/db.php");
     require_once("../config/conexion.php");
     require_once("../Classes/PHPExcel.php");

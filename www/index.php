@@ -128,10 +128,12 @@
                         en el área
                         de Evangelismo y Discipulado, inculcando Valores y Principios Bíblicos para su Vida Cristiana
                     </p>
-                    <!-- <div class="intro-button mx-auto">
-                        <a class="btn btn-primary btn-xl" data-toggle="modal"
-                            data-target="#exampleModalCenter">Postulate ya!</a>
-                    </div> -->
+                    <div class="intro-button mx-auto">
+                        <!-- <a class="btn btn-primary btn-xl" data-toggle="modal"
+                            data-target="#exampleModalCenter">Postulate ya!</a> -->
+                        <a href="https://forms.gle/uSTogvVGM5xKMEwZA" target="_blank"
+                            class="btn btn-primary btn-xl">Reincorporación</a>
+                    </div>
                 </div>
             </div>
         </div>
