@@ -35,6 +35,7 @@ CREATE TABLE cedadmision.Postulante (
 	Sexo varchar(10) NOT NULL,
 	Pais varchar(20) NOT NULL,
 	Lugar_Nacimiento varchar(30) NOT NULL,
+	Vacuna varchar(2) NOT NULL,
 	Fecha_Nacimiento Date NOT NULL,
 	Estado_Civil varchar(100) NOT NULL,
 	Edad INT NOT NULL,

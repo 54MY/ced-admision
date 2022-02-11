@@ -146,7 +146,8 @@
                             <?php
                                 include("../config/db.php");
                                 include("../config/conexion.php");
-                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Direccion_Departamento, Direccion_Domicilio, Pais, Correo, Nombre_Pastor, Telefono_Pastor, Postulacion, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario FROM Postulante";
+                                require('../libraries/simplehtmldom_1_9_1/simple_html_dom.php');
+                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Direccion_Departamento, Direccion_Domicilio, Pais, Correo, Nombre_Pastor, Telefono_Pastor, Postulacion, Vacuna, Fecha_Nacimiento, Cedula, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario FROM Postulante";
                                 $result = mysqli_query($con,$query); 
                                 echo '<table id="postulante-tabla" class="table table-striped">';
                                 echo '<thead>
@@ -189,10 +190,26 @@
                                                 data-pastortelefono="' . $row['Telefono_Pastor'] . '"
                                                 data-postulacion="' . $row['Postulacion'] . '"
                                                 data-toggle="modal" data-target="#detallesCuenta"></span></a></td>';
-                                        echo '<td>' . $row['id'] . '</td>';
+                                        if ($row['Vacuna']=='si'){
+                                            $arrContextOptions=array(
+                                                "ssl"=>array(
+                                                    "verify_peer"=>false,
+                                                    "verify_peer_name"=>false,
+                                                ),
+                                            );
+                                            $ruta = "https://sus.minsalud.gob.bo/buscar_vacuna_pagina?tipodocumento_vacuna=1&nrodocumento_vacuna=". $row['Cedula'] ."&fechanacimiento_vacuna=". $row['Fecha_Nacimiento'] ."";
+                                            $html = file_get_html($ruta, false, stream_context_create($arrContextOptions));
+                                            foreach($html->find('a') as $a) {
+                                                if($a->href) {
+                                                    echo '<td><a type="button" class="btn btn-success" href="https://sus.minsalud.gob.bo'. $a->href . '" "download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_CARNET_VACUNA.pdf">' . $row['id'] . '</a></td>';
+                                                }
+                                            }
+                                        } else {
+                                            echo '<td align="center">' . $row['id'] . '</td>';
+                                        }
                                         echo '<td>' . $row['Nombres'] . '</td>';
                                         echo '<td>' . $row['Apellidos'] . '</td>';
-                                        echo '<td>' . $row['Edad'] . '</td>';
+                                        echo '<td align="center">' . $row['Edad'] . '</td>';
                                         echo '<td>' . $row['Celular'] . '</td>';
                                         echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Foto_Carnet']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_FOTOCOPIA_CARNET.pdf">Descargar</a></td>';
                                         echo '<td><a href="data:image/pdf;charset=utf8;base64,' . base64_encode($row['Carta_Referencia']) . '"download="' . $row['id'] .'_'. $row['Nombres'] .'_'. $row['Apellidos'] . '_CARTA_REFERENCIA.pdf">Descargar</a></td>';
@@ -235,7 +252,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h5 class="modal-title center" id="exampleModalLabel">Nueva contraseña</h5>
+                        <h5 class="modal-title center" id="exampleModalLabel"><strong>Nueva contraseña</strong></h5>
                     </div>
                     <div class="modal-body">
                         <form method="post">
@@ -283,143 +300,151 @@
 
         <!-- Modal Postulante -->
         <div class="modal fade" id="detallesCuenta" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h5 class="modal-title center" id="exampleModalLabel">Detalles Usuario</h5>
+                        <h5 class="modal-title center" id="exampleModalLabel"><strong>Detalles Usuario</strong></h5>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($fotoPerfil); ?>"
-                                id="foto-perfil" alt="" class="img-thumbnail mx-auto d-block"
-                                style="display: block;margin-left: auto;margin-right: auto;" width="150" height="150" />
+                        <div class="container-fluid">
+                            <div class="form-group">
+                                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($fotoPerfil); ?>"
+                                    id="foto-perfil" alt="" class="img-thumbnail mx-auto d-block"
+                                    style="display: block;margin-left: auto;margin-right: auto;" width="150" height="150" />
+                                </br>
+                                <div class="wrapper">
+                                    <span class="group-btn">
+                                        <form method="post" action="../controler/exportpdf.php" target="_blank">
+                                            <input style="display:none" name="id" id="id"
+                                                class="form-control input-sm chat-input" type="text" />
+                                            <button class="btn btn-primary btn-sm" type="submit" name="hojadevida">Imprimir
+                                                hoja de vida (Aún en desarrollo)</button>
+                                        </form>
+                                    </span>
+                                </div>
+                            </div>
                             </br>
-                            <div class="wrapper">
-                                <span class="group-btn">
-                                    <form method="post" action="../controler/exportpdf.php" target="_blank">
-                                        <input style="display:none" name="id" id="id"
-                                            class="form-control input-sm chat-input" type="text" />
-                                        <button class="btn btn-primary btn-sm" type="submit" name="hojadevida">Imprimir
-                                            hoja de vida (Aún en desarrollo)</button>
-                                    </form>
-                                </span>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Postula</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="postulacion" id="postulacion"></span></i>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Postula</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="postulacion" id="postulacion"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Nombres</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="nombre" id="nombre"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Apellidos</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="apellido" id="apellido"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Edad</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="edad" id="edad"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Nombres</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="nombre" id="nombre"></span></i>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Sexo</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="sexo" id="sexo"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Celular</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="celular" id="celular"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Pais</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="pais" id="pais"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Ciudad</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="ciudad" id="ciudad"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Correo</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="correo" id="correo"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Apellidos</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="apellido" id="apellido"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Edad</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="edad" id="edad"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Sexo</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="sexo" id="sexo"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Celular</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="celular" id="celular"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Pais</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="pais" id="pais"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Ciudad</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="ciudad" id="ciudad"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Domicilio</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="domicilio" id="domicilio"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Pastor</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="pastornombre" id="pastornombre"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Telefono</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="pastortelefono" id="pastortelefono"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Usuario</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="usuario" id="usuario"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Correo</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="correo" id="correo"></span></i>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Domicilio</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="domicilio" id="domicilio"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Pastor</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="pastornombre" id="pastornombre"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Telefono</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="pastortelefono" id="pastortelefono"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Usuario</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="usuario" id="usuario"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

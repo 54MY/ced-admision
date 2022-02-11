@@ -133,7 +133,7 @@
                                 </h2>
                                 <p>Los requisitos son los siguientes:</p>
                                 <li class="nav-item px-lg-4">
-                                    <a>PCR con 72 horas antes del ingreso a la Propiedad Palabra de Vida</a>
+                                    <a>Carnet de vacuna contra el COVID-19</a>
                                 </li>
                                 <li class="nav-item px-lg-4">
                                     <a>Análisis: VDRL, Hemograma, HIV, Chagas, VDRL, Grupo y Factor.

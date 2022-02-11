@@ -60,12 +60,12 @@
 
 <body>
     <?php
-        //include("config/db.php");
-        //include("config/conexion.php");
+        include("config/db.php");
+        include("config/conexion.php");
         include("config/alertas.php");
 
         if(isset($_POST['registrar'])){
-            /*$cedula = addslashes($_POST['cedula']);
+            $cedula = addslashes($_POST['cedula']);
             if (empty($cedula)) {
                 $mensaje = 'Numero de cedula requerido';
                 popUpWarning($mensaje);
@@ -100,6 +100,11 @@
                 $mensaje = 'Debe ingresar su lugar de nacimiento';
                 popUpWarning($mensaje);
             } else {$lugarnacimiento = strtoupper($lugarnacimiento);}
+            $vacuna = addslashes($_POST['vacuna']);
+            if (empty($vacuna)) {
+                $mensaje = 'Seleccione si es vacunado';
+                popUpWarning($mensaje);
+            }
             $fechanacimiento = addslashes($_POST['fechanacimiento']);
             if (empty($fechanacimiento)) {
                 $mensaje = 'Debe isertar su fecha de nacimiento';
@@ -312,8 +317,8 @@
             }
             $contrasena =  sha1($contrasena);
 
-            $sql = "INSERT INTO cedadmision.Postulante (Cedula, Expedido, Nombres, Apellidos, Sexo, Pais, Lugar_Nacimiento, Fecha_Nacimiento, Estado_Civil, Edad, Datos_Conyugue, Datos_Hijos, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Ocupacion, Nombre_Iglesia, Denominacion, Direccion_Iglesia, Domicilio_Iglesia, Miembro_Iglesia, Bautizado, Nombre_Pastor, Telefono_Pastor, Correo_Pastor, Testimonio, Postulacion, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Usuario, Contrasena)
-                    VALUES('$cedula', '$expedido', '$nombres', '$apellidos', '$sexo', '$pais', '$lugarnacimiento', '$fechanacimiento', '$estadocivil', $edad, '$datosconyuge', '$hijos', '$direcciondep', '$domicilio', $celular, '$correo', '$ocupacion','$nombreiglesia', '$denominacion', '$direccioniglesia', '$domicilioiglesia', '$miembro', '$bautizado', '$pastor', $telefonopastor, '$correpastor', '$testimonio', '$postulacion', '$fotoPerfil', '$fotoCarnet', '$fotoReferencia', '$fotoCertificado', '$usuario', '$contrasena')";
+            $sql = "INSERT INTO cedadmision.Postulante (Cedula, Expedido, Nombres, Apellidos, Sexo, Pais, Lugar_Nacimiento, Vacuna, Fecha_Nacimiento, Estado_Civil, Edad, Datos_Conyugue, Datos_Hijos, Direccion_Departamento, Direccion_Domicilio, Celular, Correo, Ocupacion, Nombre_Iglesia, Denominacion, Direccion_Iglesia, Domicilio_Iglesia, Miembro_Iglesia, Bautizado, Nombre_Pastor, Telefono_Pastor, Correo_Pastor, Testimonio, Postulacion, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Usuario, Contrasena)
+                    VALUES('$cedula', '$expedido', '$nombres', '$apellidos', '$sexo', '$pais', '$lugarnacimiento', '$vacuna', '$fechanacimiento', '$estadocivil', $edad, '$datosconyuge', '$hijos', '$direcciondep', '$domicilio', $celular, '$correo', '$ocupacion','$nombreiglesia', '$denominacion', '$direccioniglesia', '$domicilioiglesia', '$miembro', '$bautizado', '$pastor', $telefonopastor, '$correpastor', '$testimonio', '$postulacion', '$fotoPerfil', '$fotoCarnet', '$fotoReferencia', '$fotoCertificado', '$usuario', '$contrasena')";
 
             $retval = mysqli_query($con,$sql);
             if($retval) {
@@ -323,9 +328,9 @@
                 $mensaje = 'Nose pudo registrar, contacte al administrador';
                 popUpEnd('Error en Servidor',$mensaje);
                 die('Could not enter data: ' . mysqli_error());
-            }*/
+            }
 
-            popUpEnd('Inscripciones cerradas','El proceso de inscripcion a terminado');
+            //popUpEnd('Inscripciones cerradas','El proceso de inscripcion a terminado');
         }
     ?>
 
@@ -427,6 +432,21 @@
                                     </div>
                                     <input class="form-control" id="lugarnacimiento" type="text" name="lugarnacimiento"
                                         placeholder="Escriba el nombre de su ciudad" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">¿Se vacuno contra el COVID-19?</label>
+                            <div class="col-sm-8">
+                                <div class="form-check form-check-inline">
+                                    <input class="col-sm-1 form-check-input" type="radio" name="vacuna" id="vacuna"
+                                        value="si" required>
+                                    <label class="col-sm-2 form-check-label" for="vacuna">Si</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="col-sm-1 form-check-input" type="radio" name="vacuna" id="vacuna"
+                                        value="no" required>
+                                    <label class="col-sm-2 form-check-label" for="vacuna">No</label>
                                 </div>
                             </div>
                         </div>

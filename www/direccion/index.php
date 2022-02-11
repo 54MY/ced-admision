@@ -112,7 +112,8 @@
                             <?php
                                 include("../config/db.php");
                                 include("../config/conexion.php");
-                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Lugar_Nacimiento, Pais, Correo, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario FROM Postulante WHERE Estado_Vida='apto'";
+                                require('../libraries/simplehtmldom_1_9_1/simple_html_dom.php');
+                                $query = "SELECT id, Nombres, Apellidos, Edad, Sexo, Celular, Lugar_Nacimiento, Pais, Correo, Foto_Perfil, Foto_Carnet, Carta_Referencia, Foto_Bachiler, Estado_Vida, Estado_Direccion, Usuario, Vacuna, Fecha_Nacimiento, Cedula FROM Postulante WHERE Estado_Vida='apto'";
                                 $result = mysqli_query($con,$query); 
                                 echo '<table id="postulante-tabla" class="table table-striped">';
                                 echo '<thead>
@@ -144,10 +145,26 @@
                                                 data-usuario="' . $row['Usuario'] . '"
                                                 data-correo="' . $row['Correo'] . '"
                                                 data-toggle="modal" data-target="#detallesCuenta"></span></a></td>';
-                                        echo '<td>' . $row['id'] . '</td>';
+                                        if ($row['Vacuna']=='si'){
+                                            $arrContextOptions=array(
+                                                "ssl"=>array(
+                                                    "verify_peer"=>false,
+                                                    "verify_peer_name"=>false,
+                                                ),
+                                            );
+                                            $ruta = "https://sus.minsalud.gob.bo/buscar_vacuna_pagina?tipodocumento_vacuna=1&nrodocumento_vacuna=". $row['Cedula'] ."&fechanacimiento_vacuna=". $row['Fecha_Nacimiento'] ."";
+                                            $html = file_get_html($ruta, false, stream_context_create($arrContextOptions));
+                                            foreach($html->find('a') as $a) {
+                                                if($a->href) {
+                                                    echo '<td><a type="button" class="btn btn-success" href="https://sus.minsalud.gob.bo'. $a->href . '">' . $row['id'] . '</a></td>';
+                                                }
+                                            }
+                                        } else {
+                                            echo '<td align="center">' . $row['id'] . '</td>';
+                                        }
                                         echo '<td>' . $row['Nombres'] . '</td>';
                                         echo '<td>' . $row['Apellidos'] . '</td>';
-                                        echo '<td>' . $row['Edad'] . '</td>';
+                                        echo '<td align="center">' . $row['Edad'] . '</td>';
                                         echo '<td>' . $row['Celular'] . '</td>';
                                         if ($row['Estado_Direccion']=='apto'){
                                             echo '<td><button type="button" class="autorizar-postulante btn btn-success btn-sm">Autorizado</button></td>';
@@ -232,96 +249,104 @@
 
         <!-- Modal Postulante -->
         <div class="modal fade" id="detallesCuenta" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h5 class="modal-title center" id="exampleModalLabel">Detalles Usuario</h5>
+                        <h5 class="modal-title center" id="exampleModalLabel"><strong>Detalles Usuario</strong></h5>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($fotoPerfil); ?>"
-                                id="foto-perfil" alt="" class="img-thumbnail mx-auto d-block"
-                                style="display: block;margin-left: auto;margin-right: auto;" width="150" height="150">
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Nombres</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="nombre" id="nombre"></span></i>
-                                </div>
+                        <div class="container-fluid">
+                            <div class="form-group">
+                                <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($fotoPerfil); ?>"
+                                    id="foto-perfil" alt="" class="img-thumbnail mx-auto d-block"
+                                    style="display: block;margin-left: auto;margin-right: auto;" width="150" height="150">
                             </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Apellidos</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="apellido" id="apellido"></span></i>
+                            </br>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Nombres</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="nombre" id="nombre"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Apellidos</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="apellido" id="apellido"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Edad</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="edad" id="edad"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Edad</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="edad" id="edad"></span></i>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Sexo</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="sexo" id="sexo"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Celular</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="celular" id="celular"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Pais</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="pais" id="pais"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Sexo</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="sexo" id="sexo"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Celular</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="celular" id="celular"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Pais</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="pais" id="pais"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Ciudad</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="ciudad" id="ciudad"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Usuario</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="usuario" id="usuario"></span></i>
-                                </div>
-                            </div>
-                        </div>
-                        </br>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Correo</label>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <i><span name="correo" id="correo"></span></i>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Ciudad</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="ciudad" id="ciudad"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Usuario</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="usuario" id="usuario"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Correo</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <i><span name="correo" id="correo"></span></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
