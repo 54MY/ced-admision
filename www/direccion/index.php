@@ -232,7 +232,7 @@
                     <div class="modal-body">
                         <form method="post">
                             <p>Al darle aceptar, esta confirmando que el postulante es apto para poder participar del
-                                C.E.D. 2021. El cual pasará a su validacion en Administración</p>
+                                C.E.D. 2022. El cual pasará a su validacion en Administración</p>
                             <input style="display:none" name="id_user" id="id_user"
                                 class="form-control input-sm chat-input" type="text" />
                             </br>

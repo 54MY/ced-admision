@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admision CED</title>
+    <title>CED Palabra de Vida Bolivia</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -126,7 +126,7 @@
                                 "Alcanzando a la juventud con el evangelio de Jesucristo"
                             </em>
                         </p>
-                        <p style="text-align: justify;">Querido interesado al CED 2021
+                        <p style="text-align: justify;">Querido interesado al CED 2022
                             Queremos comunicarles que una vez que puedan inscribirse en la página, el paso siguiente es
                             reservar la vacante con un depósito de 2700 bs. Este importe se debe a : matrícula  500 bs,
                             más primera cuota correspondiente al mes de Abril de 1100 bs y una cuota como reserva de
@@ -206,7 +206,7 @@
 
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; www.admisionced.com 2021</p>
+            <p class="m-0 small">Copyright &copy; www.admisionced.com 2022</p>
         </div>
     </footer>
 

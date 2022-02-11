@@ -180,9 +180,9 @@
                                         <?php
                                             } else if (!empty($estadoVida) && empty($estadoDireccion)) {
                                         ?>
-                                        <i><b>PAGO CED 2021:</b>
+                                        <i><b>PAGO CED 2022:</b>
                                             Una vez completado los requisitos y haber seguido todos los pasos de
-                                            Admisión, debes realizar el Pago Correspondiente a CED 2021.
+                                            Admisión, debes realizar el Pago Correspondiente a CED 2022.
                                             Los Pasos a seguir, son los siguientes:</i>
                                         </br>
                                         </br>
@@ -211,7 +211,7 @@
                                                                 Número: 4396101
                                                             </li>
                                                             <li>
-                                                                Detalle: CUOTA CED 2021
+                                                                Detalle: CUOTA CED 2022
                                                             </li>
                                                         </ul>
                                                     </li>
