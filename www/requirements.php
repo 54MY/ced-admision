@@ -136,7 +136,7 @@
                                     <a>Carnet de vacuna contra el COVID-19</a>
                                 </li>
                                 <li class="nav-item px-lg-4">
-                                    <a>Análisis: VDRL, Hemograma, HIV, Chagas, VDRL, Grupo y Factor.
+                                    <a>Análisis: VDRL, Hemograma, HIV, Chagas, Grupo y Factor.
                                 </li>
                                 <li class="nav-item px-lg-4">
                                     <a>Seguro medico
